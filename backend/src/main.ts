@@ -2,7 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-const HOST = '192.168.31.222';
+const HOST = process.env.IP_ADDRESS;
 const PORT = 3001;
 
 async function bootstrap() {

@@ -16,7 +16,7 @@ export class AuthService {
     const user = await this.createUser(registerDto);
     const token = await this._createToken(user);
     return {
-      phoneNumber: user.phoneNumber,
+      user,
       ...token,
     };
   }
@@ -26,8 +26,7 @@ export class AuthService {
     const token = await this._createToken(user);
 
     return {
-      phoneNumber: user.phoneNumber,
-      name: user.name,
+      user,
       ...token,
     };
   }

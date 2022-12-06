@@ -1,8 +1,9 @@
 import { Document } from 'mongoose';
 
 export interface Auth extends Document {
-  name: string;
+  phoneNumber: string;
   email: string;
+  name: string;
   password: string;
   refreshToken: string;
 }

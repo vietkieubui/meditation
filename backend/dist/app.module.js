@@ -15,11 +15,15 @@ const platform_express_1 = require("@nestjs/platform-express");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const tracks_module_1 = require("./tracks/tracks.module");
+const auth_module_1 = require("./auth/auth.module");
+const user_module_1 = require("./user/user.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot(),
             platform_express_1.MulterModule.register({
                 dest: './files',
             }),
@@ -27,8 +31,10 @@ AppModule = __decorate([
                 driver: apollo_1.ApolloDriver,
                 autoSchemaFile: 'schema.gql',
             }),
-            mongoose_1.MongooseModule.forRoot(`mongodb+srv://admin:EOENDoVfISawKJ5p@cluster0.jwdsz5d.mongodb.net/?retryWrites=true&w=majority`),
+            mongoose_1.MongooseModule.forRoot(`mongodb+srv://admin:12344321@cluster0.zd9oz5v.mongodb.net/?retryWrites=true&w=majority`),
             tracks_module_1.TracksModule,
+            auth_module_1.AuthModule,
+            user_module_1.UserModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -12,12 +12,11 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(registerUserDto: RegisterDto) {
-    const user = await this.createUser(registerUserDto);
+  async register(registerDto: RegisterDto) {
+    const user = await this.createUser(registerDto);
     const token = await this._createToken(user);
     return {
       phoneNumber: user.phoneNumber,
-      name: user.name,
       ...token,
     };
   }
@@ -33,8 +32,8 @@ export class AuthService {
     };
   }
 
-  async validateUser(email) {
-    const user = await this.findByEmail(email);
+  async validateUser(phoneNumber) {
+    const user = await this.findByEmail(phoneNumber);
     if (!user) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
@@ -77,18 +76,18 @@ export class AuthService {
     });
   }
 
-  private async _createToken({ email }, refresh = true) {
-    const accessToken = this.jwtService.sign({ email });
+  private async _createToken({ phoneNumber }, refresh = true) {
+    const accessToken = this.jwtService.sign({ phoneNumber });
     if (refresh) {
       const refreshToken = this.jwtService.sign(
-        { email },
+        { phoneNumber },
         {
           secret: process.env.SECRETKEY_REFRESH,
           expiresIn: process.env.EXPIRESIN_REFRESH,
         },
       );
       await this.update(
-        { email: email },
+        { phoneNumber: phoneNumber },
         {
           refreshToken: refreshToken,
         },
@@ -112,10 +111,13 @@ export class AuthService {
       const payload = await this.jwtService.verify(refresh_token, {
         secret: process.env.SECRETKEY_REFRESH,
       });
-      const user = await this.getUserByRefresh(refresh_token, payload.email);
+      const user = await this.getUserByRefresh(
+        refresh_token,
+        payload.phoneNumber,
+      );
       const token = await this._createToken(user, false);
       return {
-        email: user.email,
+        phoneNumber: user.phoneNumber,
         ...token,
       };
     } catch (e) {
@@ -124,11 +126,14 @@ export class AuthService {
   }
 
   async logout(user: User) {
-    await this.update({ email: user.email }, { refreshToken: null });
+    await this.update(
+      { phoneNumber: user.phoneNumber },
+      { refreshToken: null },
+    );
   }
 
-  async getUserByRefresh(refresh_token, email) {
-    const user = await this.findByEmail(email);
+  async getUserByRefresh(refresh_token, phoneNumber) {
+    const user = await this.findByEmail(phoneNumber);
     if (!user) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { RegisterUserDto, LoginUserDto } from './dto/auth.dto';
+import { RegisterDto, LoginDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user/schemas/user.schema';
 import * as bcrypt from 'bcrypt';
@@ -12,21 +12,23 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(registerUserDto: RegisterUserDto) {
+  async register(registerUserDto: RegisterDto) {
     const user = await this.createUser(registerUserDto);
     const token = await this._createToken(user);
     return {
-      email: user.email,
+      phoneNumber: user.phoneNumber,
+      name: user.name,
       ...token,
     };
   }
 
-  async login(loginUserDto: LoginUserDto) {
+  async login(loginUserDto: LoginDto) {
     const user = await this.findByLogin(loginUserDto);
     const token = await this._createToken(user);
 
     return {
-      email: user.email,
+      phoneNumber: user.phoneNumber,
+      name: user.name,
       ...token,
     };
   }
@@ -39,12 +41,12 @@ export class AuthService {
     return user;
   }
 
-  async createUser(registerUserDto: RegisterUserDto) {
+  async createUser(registerUserDto: RegisterDto) {
     registerUserDto.password = await bcrypt.hash(registerUserDto.password, 10);
 
     // check exists
     const userInDb = await this.authRepository.findByCondition({
-      email: registerUserDto.email,
+      phoneNumber: registerUserDto.phoneNumber,
     });
     if (userInDb) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
@@ -52,9 +54,9 @@ export class AuthService {
     return await this.authRepository.create(registerUserDto);
   }
 
-  async findByLogin({ email, password }: LoginUserDto) {
+  async findByLogin({ phoneNumber, password }: LoginDto) {
     const user = await this.authRepository.findByCondition({
-      email: email,
+      phoneNumber: phoneNumber,
     });
 
     if (!user) {
@@ -69,9 +71,9 @@ export class AuthService {
 
     return user;
   }
-  async findByEmail(email) {
+  async findByEmail(phoneNumber) {
     return await this.authRepository.findByCondition({
-      email: email,
+      phoneNumber: phoneNumber,
     });
   }
 

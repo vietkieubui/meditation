@@ -8,9 +8,11 @@ import { AppService } from './app.service';
 import { TracksModule } from './tracks/tracks.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MulterModule.register({
       dest: './files',
     }),
@@ -19,7 +21,7 @@ import { UserModule } from './user/user.module';
       autoSchemaFile: 'schema.gql',
     }),
     MongooseModule.forRoot(
-      `mongodb+srv://admin:EOENDoVfISawKJ5p@cluster0.jwdsz5d.mongodb.net/?retryWrites=true&w=majority`,
+      `mongodb+srv://admin:12344321@cluster0.zd9oz5v.mongodb.net/?retryWrites=true&w=majority`,
     ),
     TracksModule,
     AuthModule,

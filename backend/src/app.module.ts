@@ -9,6 +9,9 @@ import { TracksModule } from './tracks/tracks.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
+import { ConversationModule } from './conversation/conversation.module';
+import { MessageModule } from './message/message.module';
+import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
   imports: [
@@ -21,11 +24,14 @@ import { ConfigModule } from '@nestjs/config';
       autoSchemaFile: 'schema.gql',
     }),
     MongooseModule.forRoot(
-      `mongodb+srv://admin:12344321@cluster0.zd9oz5v.mongodb.net/?retryWrites=true&w=majority`,
+      process.env.MONGO_URI,
     ),
     TracksModule,
     AuthModule,
     UserModule,
+    ConversationModule,
+    MessageModule,
+    GatewayModule,
   ],
   controllers: [AppController],
   providers: [AppService],

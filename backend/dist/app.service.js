@@ -10,8 +10,7 @@ exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
 let AppService = class AppService {
     getHello() {
-        console.log(process.env.SECRETKEY);
-        return process.env.SECRETKEY;
+        return "Meditation API";
     }
 };
 AppService = __decorate([

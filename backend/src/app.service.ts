@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
-    console.log(process.env.SECRETKEY);
-    return process.env.SECRETKEY;
+    return "Meditation API";
   }
 }

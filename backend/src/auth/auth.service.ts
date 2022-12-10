@@ -1,164 +1,56 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { RegisterDto, LoginDto } from './dto/auth.dto';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user/schemas/user.schema';
-import * as bcrypt from 'bcrypt';
-import { AuthRepository } from './repositories/auth.repository';
+import { UserService } from 'src/user/user.service';
+import { AuthResDto, LoginReqDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
+import { ERROR } from 'src/common/constants';
+import { HttpException } from 'src/common/exceptions';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly authRepository: AuthRepository,
+    private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(registerDto: RegisterDto) {
-    const user = await this.createUser(registerDto);
-    const token = await this._createToken(user);
-    return {
-      user,
-      ...token,
+  async register(dto: RegisterDto): Promise<AuthResDto> {
+    // check phone already registed
+    if (await this.userService.checkPhoneNumberIsValid(dto.phoneNumber))
+      throw HttpException.badRequest(ERROR.PHONE_NUMBER_EXISTED);
+
+    
+    // create user and generate accessToken
+    const user = await this.userService.createUser(dto);
+    const accessToken = this.generateAccessToken(user);
+    return AuthResDto.ok(accessToken, user);
+  }
+
+  async login(dto: LoginReqDto): Promise<AuthResDto> {
+    const user = await this.userService.findOne({
+      phoneNumber: dto.phoneNumber,
+    });
+    if (!(user && user.comparePassword(dto.password)))
+      throw HttpException.badRequest(ERROR.AUTHENTICATE_FAIL);    
+
+    await user.save();
+    const accessToken = this.generateAccessToken(user);
+    return AuthResDto.ok(accessToken, user);
+  }
+
+  private generateAccessToken(user: User): string {
+    const payload = {
+      id: user._id,
     };
+    return this.jwtService.sign(payload);
   }
-
-  async login(loginUserDto: LoginDto) {
-    const user = await this.findByLogin(loginUserDto);
-    const token = await this._createToken(user);
-
-    return {
-      user,
-      ...token,
-    };
-  }
-
-  async validateUser(phoneNumber) {
-    const user = await this.findByEmail(phoneNumber);
-    if (!user) {
-      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
-    }
-    return user;
-  }
-
-  async createUser(registerUserDto: RegisterDto) {
-    registerUserDto.password = await bcrypt.hash(registerUserDto.password, 10);
-
-    // check exists
-    const userInDb = await this.authRepository.findByCondition({
-      phoneNumber: registerUserDto.phoneNumber,
-    });
-    if (userInDb) {
-      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
-    }
-    return await this.authRepository.create(registerUserDto);
-  }
-
-  async findByLogin({ phoneNumber, password }: LoginDto) {
-    const user = await this.authRepository.findByCondition({
-      phoneNumber: phoneNumber,
-    });
-
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
-    }
-
-    const is_equal = bcrypt.compareSync(password, user.password);
-
-    if (!is_equal) {
-      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-    }
-
-    return user;
-  }
-  async findByEmail(phoneNumber) {
-    return await this.authRepository.findByCondition({
-      phoneNumber: phoneNumber,
-    });
-  }
-
-  private async _createToken({ phoneNumber }, refresh = true) {
-    const accessToken = this.jwtService.sign({ phoneNumber });
-    if (refresh) {
-      const refreshToken = this.jwtService.sign(
-        { phoneNumber },
-        {
-          secret: process.env.SECRETKEY_REFRESH,
-          expiresIn: process.env.EXPIRESIN_REFRESH,
-        },
-      );
-      await this.update(
-        { phoneNumber: phoneNumber },
-        {
-          refreshToken: refreshToken,
-        },
-      );
-      return {
-        expiresIn: process.env.EXPIRESIN,
-        accessToken,
-        refreshToken,
-        expiresInRefresh: process.env.EXPIRESIN_REFRESH,
-      };
-    } else {
-      return {
-        expiresIn: process.env.EXPIRESIN,
-        accessToken,
-      };
-    }
-  }
-
-  async refresh(refresh_token) {
+  
+  async getUserFromJwt(accessToken: string): Promise<User> {
     try {
-      const payload = await this.jwtService.verify(refresh_token, {
-        secret: process.env.SECRETKEY_REFRESH,
-      });
-      const user = await this.getUserByRefresh(
-        refresh_token,
-        payload.phoneNumber,
-      );
-      const token = await this._createToken(user, false);
-      return {
-        phoneNumber: user.phoneNumber,
-        ...token,
-      };
+      const { id } = this.jwtService.decode(accessToken) as Record<string, any>;
+      return this.userService.findByIdOrFail(id);
     } catch (e) {
-      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
+      return null;
     }
-  }
-
-  async logout(user: User) {
-    await this.update(
-      { phoneNumber: user.phoneNumber },
-      { refreshToken: null },
-    );
-  }
-
-  async getUserByRefresh(refresh_token, phoneNumber) {
-    const user = await this.findByEmail(phoneNumber);
-    if (!user) {
-      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
-    }
-    const is_equal = await bcrypt.compare(
-      this.reverse(refresh_token),
-      user.refreshToken,
-    );
-
-    if (!is_equal) {
-      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-    }
-
-    return user;
-  }
-
-  async update(filter, update) {
-    if (update.refreshToken) {
-      update.refreshToken = await bcrypt.hash(
-        this.reverse(update.refreshToken),
-        10,
-      );
-    }
-    return await this.authRepository.findByConditionAndUpdate(filter, update);
-  }
-
-  private reverse(s) {
-    return s.split('').reverse().join('');
   }
 }

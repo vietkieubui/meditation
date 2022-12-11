@@ -13,7 +13,7 @@ export class SocketService extends Server implements SetServer {
     this.server = server;
   }
 
-  async emitMessage(message: Message): Promise<void> {
+  async emitMessage(message: Message): Promise<void> {    
     const roomId = getRoomId(RoomType.Conversation, message.conversation);
     this.server.to([roomId]).emit(SocketEvent.message, message);
   }

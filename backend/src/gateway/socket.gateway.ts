@@ -1,33 +1,29 @@
-import {
-  UseFilters,
-  UseGuards,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import {UseFilters, UseGuards, UsePipes, ValidationPipe} from '@nestjs/common';
 import {
   OnGatewayInit,
   SubscribeMessage,
   WebSocketGateway,
+  MessageBody,
 } from '@nestjs/websockets';
-import { Server } from 'socket.io';
-import { AuthService } from '../auth/auth.service';
-import { SocketEvent } from '../common/constants';
-import { Public } from '../common/decorators';
-import { WsException } from '../common/exceptions/ws.exception';
-import { WsExceptionFilter } from '../common/filters/ws-exception.filter';
-import { SocketIoAuthGuard } from '../common/guards';
-import { ConversationService } from '../conversation/conversation.service';
-import { SocketUser } from './constants/user-type';
-import { WsAuthorizeDto } from './dto/ws-authorize.dto';
-import { getRoomId, RoomType } from './room';
-import { SocketService } from './socket.service';
+import {Server} from 'socket.io';
+import {AuthService} from '../auth/auth.service';
+import {SocketEvent} from '../common/constants';
+import {Public} from '../common/decorators';
+import {WsException} from '../common/exceptions/ws.exception';
+import {WsExceptionFilter} from '../common/filters/ws-exception.filter';
+import {SocketIoAuthGuard} from '../common/guards';
+import {ConversationService} from '../conversation/conversation.service';
+import {SocketUser} from './constants/user-type';
+import {WsAuthorizeDto} from './dto/ws-authorize.dto';
+import {getRoomId, RoomType} from './room';
+import {SocketService} from './socket.service';
 
 @UseGuards(SocketIoAuthGuard)
 @UseFilters(new WsExceptionFilter())
 @UsePipes(new ValidationPipe())
-@WebSocketGateway({
-  // namespace: Config.SOCKET_NAMESPACE,\
-})
+@WebSocketGateway(
+  // 3002, {namespace: 'events', transports: ['websocket']}
+  )
 export class SocketGateway implements OnGatewayInit<Server> {
   constructor(
     private readonly socketService: SocketService,
@@ -39,6 +35,7 @@ export class SocketGateway implements OnGatewayInit<Server> {
     this.socketService.setServer(server);
   }
 
+
   @Public()
   @SubscribeMessage(SocketEvent.login)
   async handleLogin(
@@ -47,6 +44,7 @@ export class SocketGateway implements OnGatewayInit<Server> {
   ): Promise<void> {
     // Check auth
     client.user = await this.authService.getUserFromJwt(message.accessToken);
+    
     if (!client.user) throw WsException.unauthorized();
     // Join all conversation
     const conversations = await this.conversationService.getListConversations(

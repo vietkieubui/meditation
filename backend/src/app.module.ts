@@ -6,9 +6,16 @@ import { MulterModule } from '@nestjs/platform-express';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TracksModule } from './tracks/tracks.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { ConfigModule } from '@nestjs/config';
+import { ConversationModule } from './conversation/conversation.module';
+import { MessageModule } from './message/message.module';
+import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MulterModule.register({
       dest: './files',
     }),
@@ -17,9 +24,14 @@ import { TracksModule } from './tracks/tracks.module';
       autoSchemaFile: 'schema.gql',
     }),
     MongooseModule.forRoot(
-      `mongodb+srv://admin:EOENDoVfISawKJ5p@cluster0.jwdsz5d.mongodb.net/?retryWrites=true&w=majority`,
+      process.env.MONGO_URI,
     ),
     TracksModule,
+    AuthModule,
+    UserModule,
+    ConversationModule,
+    MessageModule,
+    GatewayModule,
   ],
   controllers: [AppController],
   providers: [AppService],

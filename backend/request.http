@@ -1,0 +1,21 @@
+# Login
+###
+Post http://192.168.0.103:3001/auth/login
+Content-Type: application/json
+
+{
+    "phoneNumber": "+84123456789",
+    "password": "123456"
+}
+
+
+# SEND MESSAGE
+###
+Post http://192.168.0.103:3001/message
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOTRhODczNzM1NmYyMDA4M2U1NGFhOCIsImlhdCI6MTY3MDcyNjg0NiwiZXhwIjoxNjcwODI2ODQ2fQ.WWYzeEFlc4a2BouzCE-lYhlNyGTFg_1CjI7iFtJG7G4
+
+{
+    "content": "sent from http req",
+    "conversation": "6394b621110216165464a232"
+}

@@ -1,23 +1,23 @@
-import {TopicsProps} from '@constants/Interfaces';
-import {HomeStackRoutes} from '@constants/screens';
-import {ThemeContext} from '@context/ThemeContext';
-import {MyText, SafeView} from '@elements/SharedElements';
+import { TopicsProps } from '@constants/Interfaces';
+import { HomeStackRoutes } from '@constants/screens';
+import { ThemeContext } from '@context/ThemeContext';
+import { MyText, SafeView } from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
-import {useNavigation} from '@react-navigation/core';
-import {topics} from '@screens/TopicChoose/topics';
+import { useNavigation } from '@react-navigation/core';
+import { topics } from '@screens/TopicChoose/topics';
 import CategoryCard from '@shared/CategoryCard';
 import HomeCard from '@shared/HomeCard';
-import {HomeSkeleton, HorizontalSkeleton} from '@shared/Skeletons';
-import React, {useContext, useEffect, useState} from 'react';
+import { HomeSkeleton, HorizontalSkeleton } from '@shared/Skeletons';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Dimensions,
+  FlatList,
   Pressable,
   RefreshControl,
   ScrollView,
   StyleSheet,
-  View,
+  View
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 

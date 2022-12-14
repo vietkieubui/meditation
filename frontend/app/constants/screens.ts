@@ -35,3 +35,8 @@ export const MainStackRoutes = {
   TrackUpload: 'TrackUpload',
   TrackUpdate: 'TrackUpdate',
 };
+
+export const AuthStackRoutes = {
+  Login: 'Login',
+  Register: 'Register',
+};

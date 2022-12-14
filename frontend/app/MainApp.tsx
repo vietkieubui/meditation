@@ -1,11 +1,11 @@
-import {HEIGHT} from '@constants/const';
-import {AuthContext} from '@context/AuthContextProvider';
-import {MyText} from '@elements/SharedElements';
+import { HEIGHT } from '@constants/const';
+import { AuthContext } from '@context/AuthContextProvider';
+import { MyText } from '@elements/SharedElements';
 import useNavHelper from '@helpers/navHelper';
-import {useNetInfo} from '@react-native-community/netinfo';
-import Remainder from '@screens/Welcome/Remainder';
-import React, {useContext, useEffect, useState} from 'react';
-import {Pressable, StyleSheet} from 'react-native';
+import { useNetInfo } from '@react-native-community/netinfo';
+import React, { useContext, useEffect, useState } from 'react';
+import { Pressable, StyleSheet } from 'react-native';
+import AuthStack from './navigations/AuthStack/AuthStack';
 import MainStack from './navigations/MainStack';
 
 const MainApp = () => {
@@ -13,6 +13,8 @@ const MainApp = () => {
   const {goToDownloadedList} = useNavHelper();
   const [show, setShow] = useState(false);
   const netInfo = useNetInfo();
+
+  
 
   useEffect(() => {
     if (netInfo.isConnected) {
@@ -27,8 +29,8 @@ const MainApp = () => {
 
   return (
     <>
-      {authState.userToken === null ? (
-        <Remainder />
+      {authState.userToken === 'initial token' ? (
+        <AuthStack />
       ) : (
         <>
           <MainStack />

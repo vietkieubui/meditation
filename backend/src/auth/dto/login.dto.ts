@@ -1,22 +1,21 @@
-import { IsString, MinLength, MaxLength } from 'class-validator';
-import { User } from '../../user/schemas/user.schema';
-import { ApiProperty } from '@nestjs/swagger';
+import {IsString, MinLength, MaxLength, IsPhoneNumber} from 'class-validator';
+import {User} from '../../user/schemas/user.schema';
+import {ApiProperty} from '@nestjs/swagger';
 
 export class LoginReqDto {
-  
+  @IsPhoneNumber('VI')
   @IsString()
   @MaxLength(20)
   phoneNumber: string;
 
-  
   @IsString()
   @MinLength(6)
   @MaxLength(100)
-  password: string;  
+  password: string;
 }
 
 export class checkPhoneRegistedDto {
-  @ApiProperty({ description: `Phone number` })
+  @ApiProperty({description: `Phone number`})
   @IsString()
   phoneNumber: string;
 }

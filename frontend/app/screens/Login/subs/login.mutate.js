@@ -1,39 +1,60 @@
-import {useNavigation} from '@react-navigation/native';
 import API from '@utils/API';
 import {useMutation} from 'react-query';
-// import {accessTokenState} from 'state-management/access-token';
-// import {deviceIdAtom} from 'state-management/device-id';
-// import {nicknameState} from 'state-management/user-nickname';
+import {useSetRecoilState} from 'recoil';
+import {accessTokenState} from '../../../state-management/access-token';
 
-export const useMutationLoginSb = onShowModalError => {
-  // const deviceId = useRecoilValue(deviceIdAtom);
-  // const setAccessToken = useSetRecoilState(accessTokenState);
-  // const setNickname = useSetRecoilState(nicknameState);
-  const navigation = useNavigation();
-
-  console.log(12345);
+export const useMutationLogin = onShowModalError => {
+  const setAccessToken = useSetRecoilState(accessTokenState);
 
   return useMutation(
     values => {
-      const {phoneNumber, password} = values;
+      const {username, password} = values;
       const config = {
         method: 'POST',
         url: '/auth/login',
         params: {
-          phoneNumber,
+          phoneNumber: username,
           password,
         },
       };
       return API.request(config);
     },
     {
-      onSuccess: async (response, {sessionId}) => {
-        console.log('response', response);
-        // setAccessToken(response?.accessToken);
-        // setNickname(response?.nickname);
+      onSuccess: async response => {
+        setAccessToken(response?.data?.accessToken);
       },
       onError: e => {
         onShowModalError(e?.message || 'Không thể đăng nhập do lỗi hệ thống');
+      },
+    },
+  );
+};
+
+export const useMutationRegister = onShowModalError => {
+  const setAccessToken = useSetRecoilState(accessTokenState);
+
+  return useMutation(
+    values => {
+      const {phone, password, fullname} = values;
+      const config = {
+        method: 'POST',
+        url: '/auth/register',
+        params: {
+          name: fullname,
+          phoneNumber: phone,
+          password,
+        },
+      };
+      return API.request(config);
+    },
+    {
+      onSuccess: async response => {
+        setAccessToken(response?.accessToken);
+      },
+      onError: e => {
+        onShowModalError(
+          e?.message || 'Không thể đăng kí tài khoản do lỗi hệ thống',
+        );
       },
     },
   );

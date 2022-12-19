@@ -1,19 +1,19 @@
-import {WIDTH} from '@constants/const';
-import {MyText, SafeView} from '@elements/SharedElements';
+import { WIDTH } from '@constants/const';
+import { MyText, SafeView } from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
 import MaskedView from '@react-native-masked-view/masked-view';
-import {secondsToHHMMSS} from '@utils/secondsToHHMMSS';
-import React, {useEffect, useRef, useState} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import { secondsToHHMMSS } from '@utils/secondsToHHMMSS';
+import React, { useEffect, useRef, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Animated, {useAnimatedStyle, withSpring} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 const APPLEWIDTH = 260;
 
 const PomodoroClock = () => {
-  const totalTime = 15;
+  const totalTime = 300;
   const [timer, setNum] = useState(totalTime);
   const [pause, setPause] = useState(true);
   const {color} = useStyle();

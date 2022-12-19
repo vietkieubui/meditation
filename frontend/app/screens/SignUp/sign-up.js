@@ -1,6 +1,3 @@
-// import NavigationBar from '@components/navigation-bar';
-import {useNavigation} from '@react-navigation/native';
-import API from '@utils/API';
 import {Formik} from 'formik';
 import React from 'react';
 import {
@@ -10,14 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ENV from 'react-native-config';
 import {KeyboardAvoidingScrollView} from 'react-native-keyboard-avoiding-scroll-view';
-import {useMutation} from 'react-query';
-import {useRecoilValue} from 'recoil';
+import NavigationBar from '../../components/navigation-bar';
 // import {showToast} from 'utils/helper';
+import {useMutationRegister} from '@screens/Login/subs/login.mutate';
 import * as yup from 'yup';
 import SignUpForm from './sign-up-form';
-import {validateForm} from './sign-up-form/recoil';
 import {styles} from './sign-up.style';
 
 const loginSchema = yup.object().shape({
@@ -44,8 +39,7 @@ const loginSchema = yup.object().shape({
 });
 
 const SignUp = () => {
-  const checkValidateForm = useRecoilValue(validateForm);
-  const navigation = useNavigation();
+  const {mutate: registerApp} = useMutationRegister();
 
   const initialValues = {
     fullname: '',
@@ -54,32 +48,16 @@ const SignUp = () => {
     cfPassword: '',
   };
 
-  const {mutate: getOtpSMS} = useMutation(phone => {
-    const config = {
-      baseURL: ENV.GET_OTP_API,
-      params: {
-        template: 'sms_otp_trading_vi',
-        send: phone,
-        type: 'PHONE',
-      },
-    };
-    return API.request(config);
-  });
-
   return (
     <SafeAreaView style={styles.savMain}>
-      {/* <NavigationBar title="Mở tài khoản" /> */}
+      <NavigationBar title="Mở tài khoản" />
       <Formik
         enableReinitialize
         initialValues={initialValues}
         validationSchema={loginSchema}
         onSubmit={values => {
-          const {phone} = values;
           Keyboard.dismiss();
-          if (!checkValidateForm) {
-            getOtpSMS(phone);
-            navigation.navigate('OtpSignUp', {valuesSignUp: values});
-          }
+          registerApp(values);
         }}>
         {({handleSubmit}) => (
           <View style={{flex: 1}}>
@@ -89,7 +67,7 @@ const SignUp = () => {
                   onPress={handleSubmit}
                   activeOpacity={0.8}
                   style={styles.toLogin}>
-                  <Text style={styles.tLogin}>Tiếp tục</Text>
+                  <Text style={styles.tLogin}>Đăng kí</Text>
                 </TouchableOpacity>
               }>
               <SignUpForm />

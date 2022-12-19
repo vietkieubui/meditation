@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from 'react-query';
-import API from 'utils/API';
+import API from '@utils/API';
+import {useMutation, useQueryClient} from 'react-query';
 
 export const useMutationResetNoti = () => {
   const queryClient = useQueryClient();

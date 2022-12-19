@@ -6,7 +6,7 @@ class API {
       method = 'GET',
       url,
       params,
-      baseURL = 'ENV.SB_API',
+      baseURL = 'http://172.20.10.3:3001/',
       headers,
     } = config;
 

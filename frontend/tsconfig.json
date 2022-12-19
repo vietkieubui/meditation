@@ -53,6 +53,7 @@
       "@helpers/*": ["./helpers/*"],
       "@elements/*": ["./elements/*"],
       "@utils/*": ["./utils/*"],
+      "@state-management/*": ["./state-management/*"],
       "@redux/*": ["./redux/*"],
       "@shared/*": ["./shared/*"],
       "@graphql/*": ["./graphql/*"]

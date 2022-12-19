@@ -1,10 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
-import IconSearch from 'assets/images/icon-header-search.png';
-import { memo, useCallback } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
-import { styles } from './navigation-bar.style';
+import IconSearch from '@assets/images/icon-header-search.png';
+import {useNavigation} from '@react-navigation/native';
+import React, {memo, useCallback} from 'react';
+import {Image, TouchableOpacity} from 'react-native';
+import {styles} from './navigation-bar.style';
 
-const ActionSearch = ({ onPressSearch }) => {
+const ActionSearch = ({onPressSearch}) => {
   const navigation = useNavigation();
 
   const onSearch = useCallback(() => {

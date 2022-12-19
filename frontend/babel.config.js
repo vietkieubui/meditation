@@ -11,6 +11,8 @@ module.exports = {
           '@navigations': './app/navigations',
           '@context': './app/context',
           '@utils': './app/utils',
+          '@state-management': './app/state-management',
+          '@components': './app/components',
           '@screens': './app/screens',
           '@helpers': './app/helpers',
           '@constants': './app/constants',

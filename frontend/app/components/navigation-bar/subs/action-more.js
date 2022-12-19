@@ -1,5 +1,5 @@
-import IconMore from 'assets/images/icon-more-action.png';
-import {memo} from 'react';
+import IconMore from '@assets/images/icon-more-action.png';
+import React, {memo} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import {styles} from './navigation-bar.style';
 

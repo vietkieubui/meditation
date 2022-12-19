@@ -1,20 +1,28 @@
-import {days} from '@constants/const';
-import {MyText, SafeView} from '@elements/SharedElements';
+
+
+import { days } from '@constants/const';
+import { MyText, SafeView } from '@elements/SharedElements';
 import useNavHelper from '@helpers/navHelper';
 import useStyle from '@hooks/useStyle';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {Days} from '@screens/Welcome/Remainder';
+import { Days } from '@screens/Welcome/Remainder';
+import { accessTokenState } from '@state-management/access-token';
 import moment from 'moment';
-import React, {useState} from 'react';
-import {Pressable, StyleSheet, Switch, View} from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useSetRecoilState } from 'recoil';
+
 
 const Profile = () => {
-  const {color} = useStyle();
+  const { color } = useStyle();
   const [time, setTime] = useState(new Date(1598055340000));
   const [show, setShow] = useState(false);
   const [allDay, setAllDay] = useState<typeof days>([]);
-  const {goToTrackUpload} = useNavHelper();
+  const { goToTrackUpload } = useNavHelper();
+
+  const setAccessToken = useSetRecoilState(accessTokenState);
+
 
   const showTime = () => {
     setShow(true);
@@ -34,7 +42,7 @@ const Profile = () => {
         padding: 10,
       }}>
       <View style={styles.topView}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Pressable
             onPress={goToTrackUpload}
             style={{
@@ -44,12 +52,21 @@ const Profile = () => {
               borderRadius: 50,
             }}
           />
-          <MyText style={{marginTop: 15, marginLeft: 10}} fontSize={30}>
+          <MyText style={{ marginTop: 15, marginLeft: 10 }} fontSize={30}>
             User
           </MyText>
+
         </View>
 
-        <Icon name="edit" size={25} color={color.textColor} />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => {
+            setAccessToken(undefined)
+          }}>
+          <Text >Đăng xuất</Text>
+        </TouchableOpacity>
+
+
       </View>
       <View style={styles.followerView}>
         <View>
@@ -66,9 +83,9 @@ const Profile = () => {
         </View>
       </View>
 
-      <View style={{marginTop: 30}}>
+      <View style={{ marginTop: 30 }}>
         <MyText>My Schedule</MyText>
-        <View style={{paddingHorizontal: 10}}>
+        <View style={{ paddingHorizontal: 10 }}>
           <View
             style={{
               flexDirection: 'row',
@@ -84,7 +101,7 @@ const Profile = () => {
                 justifyContent: 'center',
                 flexDirection: 'row',
               }}>
-              <MyText title style={{marginRight: 10}}>
+              <MyText title style={{ marginRight: 10 }}>
                 {moment(time).format('h:mm A')}
               </MyText>
               <Icon name="edit" size={25} color={color.textColor} />
@@ -109,16 +126,16 @@ const Profile = () => {
             }}>
             {days.map((day, index) => {
               return (
-                <Days key={index} {...{day}} {...{allDay}} {...{setAllDay}} />
+                <Days key={index} {...{ day }} {...{ allDay }} {...{ setAllDay }} />
               );
             })}
           </View>
         </View>
 
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <MyText fontSize={25}>Recieve Daily Notification</MyText>
           <Switch
-            trackColor={{false: '#767577', true: '#81b0ff'}}
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
             thumbColor={isEnabled ? '#81b0ff' : '#f4f3f4'}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}

@@ -1,10 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
-import IconBack from 'assets/images/icon-back-screen.png';
-import { memo, useCallback } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
-import { styles } from './navigation-bar.style';
+import IconBack from '@assets/images/icon-back-screen.png';
+import {useNavigation} from '@react-navigation/native';
+import React, {memo, useCallback} from 'react';
+import {Image, TouchableOpacity} from 'react-native';
+import {styles} from './navigation-bar.style';
 
-const ActionBack = ({ onPressGoBack }) => {
+const ActionBack = ({onPressGoBack}) => {
   const navigation = useNavigation();
 
   const onGoBack = useCallback(() => {

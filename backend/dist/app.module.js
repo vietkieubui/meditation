@@ -21,6 +21,7 @@ const config_1 = require("@nestjs/config");
 const conversation_module_1 = require("./conversation/conversation.module");
 const message_module_1 = require("./message/message.module");
 const gateway_module_1 = require("./gateway/gateway.module");
+const post_module_1 = require("./post/post.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -41,6 +42,7 @@ AppModule = __decorate([
             conversation_module_1.ConversationModule,
             message_module_1.MessageModule,
             gateway_module_1.GatewayModule,
+            post_module_1.PostModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

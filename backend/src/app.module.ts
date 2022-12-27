@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ConversationModule } from './conversation/conversation.module';
 import { MessageModule } from './message/message.module';
 import { GatewayModule } from './gateway/gateway.module';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { GatewayModule } from './gateway/gateway.module';
     ConversationModule,
     MessageModule,
     GatewayModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],

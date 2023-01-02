@@ -3,4 +3,5 @@ export enum SchemaName {
   CONVERSATION = 'Conversation',
   MESSAGE = 'Message',
   POST = 'Post',
+  LIKEPOST = 'LikePost',
 }

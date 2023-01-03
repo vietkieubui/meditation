@@ -1,25 +1,21 @@
-import {TopicsProps} from '@constants/Interfaces';
-import {HomeStackRoutes} from '@constants/screens';
-import {ThemeContext} from '@context/ThemeContext';
-import {MyText, SafeView} from '@elements/SharedElements';
+import { TopicsProps } from '@constants/Interfaces';
+import { HomeStackRoutes } from '@constants/screens';
+import { ThemeContext } from '@context/ThemeContext';
+import { MyText, SafeView } from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
-import {useNavigation} from '@react-navigation/core';
-import {topics} from '@screens/TopicChoose/topics';
+import { useNavigation } from '@react-navigation/core';
+import { topics } from '@screens/TopicChoose/topics';
 import CategoryCard from '@shared/CategoryCard';
 import HomeCard from '@shared/HomeCard';
-import {HomeSkeleton, HorizontalSkeleton} from '@shared/Skeletons';
-import React, {useContext, useEffect, useState} from 'react';
+import { HomeSkeleton, HorizontalSkeleton } from '@shared/Skeletons';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Dimensions,
-  Pressable,
-  RefreshControl,
+  FlatList, RefreshControl,
   ScrollView,
   StyleSheet,
-  View,
+  View
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const {width} = Dimensions.get('window');
 
@@ -48,11 +44,11 @@ const Home = () => {
     // set the time according to the current time
     const currentTime = new Date().getHours();
     if (currentTime >= 6 && currentTime < 12) {
-      setTime('Morning');
+      setTime('Chào buổi sáng');
     } else if (currentTime >= 12 && currentTime < 18) {
-      setTime('Afternoon');
+      setTime('Chào buổi chiều');
     } else {
-      setTime('Night');
+      setTime('Chào buổi tối');
     }
   }, [time]);
 
@@ -82,13 +78,14 @@ const Home = () => {
           />
         }>
         <MyText center style={{marginVertical: 10}}>
-          Home
+          Trang Chủ
         </MyText>
+        
         <View style={{marginVertical: 20, paddingHorizontal: 10}}>
           <MyText bold title>
-            Good {time} User
+          {time} 
           </MyText>
-          <MyText color={color.grey}>We wish you a good day</MyText>
+          <MyText color={color.grey}>Chúc bạn một ngày tốt lành</MyText>
         </View>
         <View>
           {data.length <= 0 && <HorizontalSkeleton />}
@@ -116,30 +113,9 @@ const Home = () => {
           }}>
           Music
         </MyButton> */}
-        <Pressable onPress={toggleTheme}>
-          <LinearGradient
-            colors={['#4c669f', '#3b5998', '#192f6a']}
-            style={styles.dailyCarousel}>
-            <View>
-              <MyText color={color.white} fontSize={25}>
-                Daily Thoughts
-              </MyText>
-              <MyText color={color.white}>Meditation 5-10Min</MyText>
-            </View>
-            <View
-              style={[
-                {
-                  backgroundColor: color.main,
-                  borderRadius: 25,
-                  padding: 5,
-                },
-              ]}>
-              <Icon name="play-arrow" size={35} color={color.inverse} />
-            </View>
-          </LinearGradient>
-        </Pressable>
+       
         <View style={{paddingHorizontal: 10, marginBottom: 20}}>
-          <MyText fontSize={30}>Recommended For You</MyText>
+          <MyText fontSize={30}>Đề xuất cho bạn</MyText>
 
           {data.length <= 0 && <HomeSkeleton />}
 

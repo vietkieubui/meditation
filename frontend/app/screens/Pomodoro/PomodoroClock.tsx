@@ -1,19 +1,19 @@
-import {WIDTH} from '@constants/const';
-import {MyText, SafeView} from '@elements/SharedElements';
+import { WIDTH } from '@constants/const';
+import { MyText, SafeView } from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
 import MaskedView from '@react-native-masked-view/masked-view';
-import {secondsToHHMMSS} from '@utils/secondsToHHMMSS';
-import React, {useEffect, useRef, useState} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import { secondsToHHMMSS } from '@utils/secondsToHHMMSS';
+import React, { useEffect, useRef, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Animated, {useAnimatedStyle, withSpring} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 const APPLEWIDTH = 260;
 
 const PomodoroClock = () => {
-  const totalTime = 15;
+  const totalTime = 300;
   const [timer, setNum] = useState(totalTime);
   const [pause, setPause] = useState(true);
   const {color} = useStyle();
@@ -31,7 +31,7 @@ const PomodoroClock = () => {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [pause, timer]);
 
   const handleClick = () => {
     if (timer < 1) {
@@ -58,14 +58,16 @@ const PomodoroClock = () => {
       style={{
         padding: 20,
       }}>
-      <MyText center>Pomodoro Clock</MyText>
+      <MyText center>Đồng hồ Pomodoro</MyText>
 
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
+          paddingTop:50
+
         }}>
-        <MyText fontSize={30}>Timer</MyText>
+        <MyText fontSize={30}>Đếm ngược</MyText>
         <MyText fontSize={30}>{secondsToHHMMSS(timer)}</MyText>
       </View>
 
@@ -128,7 +130,7 @@ const PomodoroClock = () => {
           alignSelf: 'center',
         }}
         onPress={handleClick}>
-        <MyText color={'#fff'}>{pause ? 'Run' : 'Pause'}</MyText>
+        <MyText color={'#fff'}>{pause ? 'Bắt đầu' : 'Dừng'}</MyText>
       </Pressable>
     </SafeView>
   );

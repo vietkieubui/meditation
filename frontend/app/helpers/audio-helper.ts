@@ -1,8 +1,8 @@
-import SoundPlayer from 'react-native-sound';
+import { TrackProps } from '@constants/Interfaces';
+import { secondsToHHMMSS } from '@utils/secondsToHHMMSS';
 import React from 'react';
-import {secondsToHHMMSS} from '@utils/secondsToHHMMSS';
-import MusicControl, {Command} from 'react-native-music-control';
-import {TrackProps} from '@constants/Interfaces';
+import MusicControl, { Command } from 'react-native-music-control';
+import SoundPlayer from 'react-native-sound';
 
 type AudioStatusType =
   | 'loading'
@@ -191,7 +191,7 @@ export function useAudioHelper(
       //@ts-ignore
       setPlayer(null);
     };
-  }, [index]);
+  }, [index, initialize]);
 
   const [isShuffle, setIsShuffle] = React.useState(false);
   function shuffle() {
@@ -299,7 +299,7 @@ export function useAudioHelper(
   );
   React.useEffect(() => {
     setRemainingIndices(remainingIndices.filter(value => value !== index));
-  }, [index]);
+  }, [index, remainingIndices]);
 
   function next() {
     if (player && request.listSounds.length) {
@@ -374,8 +374,12 @@ export function useAudioHelper(
     if (player) {
       player.getCurrentTime(secs => {
         let nextSecs = secs + secondDelta;
-        if (nextSecs < 0) nextSecs = 0;
-        if (nextSecs > player.getDuration()) nextSecs = player.getDuration();
+        if (nextSecs < 0) {
+          nextSecs = 0;
+        }
+        if (nextSecs > player.getDuration()) {
+          nextSecs = player.getDuration();
+        }
         player.setCurrentTime(nextSecs);
       });
     }
@@ -415,7 +419,7 @@ export function useAudioHelper(
     if (volume > 0 && isMuted === true) {
       setIsMuted(false);
     }
-  }, [volume]);
+  }, [isMuted, volume]);
 
   function mute() {
     if (isMuted === false) {

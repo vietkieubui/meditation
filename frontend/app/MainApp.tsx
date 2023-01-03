@@ -1,18 +1,19 @@
-import {HEIGHT} from '@constants/const';
-import {AuthContext} from '@context/AuthContextProvider';
-import {MyText} from '@elements/SharedElements';
+import { HEIGHT } from '@constants/const';
+import { MyText } from '@elements/SharedElements';
 import useNavHelper from '@helpers/navHelper';
-import {useNetInfo} from '@react-native-community/netinfo';
-import Remainder from '@screens/Welcome/Remainder';
-import React, {useContext, useEffect, useState} from 'react';
-import {Pressable, StyleSheet} from 'react-native';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { accessTokenState } from '@state-management/access-token';
+import React, { useEffect, useState } from 'react';
+import { Pressable, StyleSheet } from 'react-native';
+import { useRecoilValue } from 'recoil';
+import AuthStack from './navigations/AuthStack/AuthStack';
 import MainStack from './navigations/MainStack';
 
 const MainApp = () => {
-  const {authState} = useContext(AuthContext);
   const {goToDownloadedList} = useNavHelper();
   const [show, setShow] = useState(false);
   const netInfo = useNetInfo();
+  const accessToken = useRecoilValue(accessTokenState);
 
   useEffect(() => {
     if (netInfo.isConnected) {
@@ -27,8 +28,8 @@ const MainApp = () => {
 
   return (
     <>
-      {authState.userToken === null ? (
-        <Remainder />
+      {!accessToken ? (
+        <AuthStack />
       ) : (
         <>
           <MainStack />

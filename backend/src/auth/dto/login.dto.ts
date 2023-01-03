@@ -3,7 +3,6 @@ import {User} from '../../user/schemas/user.schema';
 import {ApiProperty} from '@nestjs/swagger';
 
 export class LoginReqDto {
-  @IsPhoneNumber('VI')
   @IsString()
   @MaxLength(20)
   phoneNumber: string;

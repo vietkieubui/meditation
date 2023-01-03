@@ -9,19 +9,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const apollo_1 = require("@nestjs/apollo");
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const graphql_1 = require("@nestjs/graphql");
 const mongoose_1 = require("@nestjs/mongoose");
 const platform_express_1 = require("@nestjs/platform-express");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const tracks_module_1 = require("./tracks/tracks.module");
 const auth_module_1 = require("./auth/auth.module");
-const user_module_1 = require("./user/user.module");
-const config_1 = require("@nestjs/config");
 const conversation_module_1 = require("./conversation/conversation.module");
-const message_module_1 = require("./message/message.module");
 const gateway_module_1 = require("./gateway/gateway.module");
+<<<<<<< HEAD
+const message_module_1 = require("./message/message.module");
+const tracks_module_1 = require("./tracks/tracks.module");
+const user_module_1 = require("./user/user.module");
+=======
 const post_module_1 = require("./post/post.module");
+>>>>>>> master
 let AppModule = class AppModule {
 };
 AppModule = __decorate([

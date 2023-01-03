@@ -5,6 +5,7 @@ export const MainTabRoutes = {
   PomodoroStack: 'PomodoroStack',
   ProfileStack: 'ProfileStack',
   DownloadedMusicStack: 'DownloadedMusicStack',
+  ChatStack: 'ChatStack',
 };
 
 export const SleepStackRoutes = {
@@ -25,6 +26,7 @@ export const HomeStackRoutes = {
   TopicMusic: 'TopicMusic',
 };
 
+
 export const MainStackRoutes = {
   MainTab: 'MainTab',
   MainMusicPage: 'MainMusicPage',
@@ -34,4 +36,9 @@ export const MainStackRoutes = {
   MusicDescription: 'MusicDescription',
   TrackUpload: 'TrackUpload',
   TrackUpdate: 'TrackUpdate',
+};
+
+export const AuthStackRoutes = {
+  Login: 'Login',
+  Register: 'Register',
 };

@@ -1,18 +1,18 @@
-import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
-import { GraphQLDriver, GraphQLModule } from '@nestjs/graphql';
-import { MongooseModule } from '@nestjs/mongoose';
-import { MulterModule } from '@nestjs/platform-express';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TracksModule } from './tracks/tracks.module';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { ConfigModule } from '@nestjs/config';
-import { ConversationModule } from './conversation/conversation.module';
-import { MessageModule } from './message/message.module';
-import { GatewayModule } from './gateway/gateway.module';
-import { PostModule } from './post/post.module';
+import {ApolloDriver, ApolloDriverConfig} from '@nestjs/apollo';
+import {Module} from '@nestjs/common';
+import {ConfigModule} from '@nestjs/config';
+import {GraphQLModule} from '@nestjs/graphql';
+import {MongooseModule} from '@nestjs/mongoose';
+import {MulterModule} from '@nestjs/platform-express';
+import {AppController} from './app.controller';
+import {AppService} from './app.service';
+import {AuthModule} from './auth/auth.module';
+import {ConversationModule} from './conversation/conversation.module';
+import {GatewayModule} from './gateway/gateway.module';
+import {MessageModule} from './message/message.module';
+import {TracksModule} from './tracks/tracks.module';
+import {UserModule} from './user/user.module';
+import {PostModule} from './post/post.module';
 
 @Module({
   imports: [
@@ -24,9 +24,7 @@ import { PostModule } from './post/post.module';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
     }),
-    MongooseModule.forRoot(
-      process.env.MONGO_URI,
-    ),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     TracksModule,
     AuthModule,
     UserModule,

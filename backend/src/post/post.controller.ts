@@ -31,4 +31,12 @@ export class PostController {
     const post = await this.postService.likePost(user, dto);
     return ResponseDto.ok(post);
   }
+
+  @Get('like')
+  async getLikePost(
+    @RequestUser() user: User,
+  ): Promise<ResponseDto<PostEntity[]>> {
+    const likePosts = await this.postService.getListLikePosts(user);
+    return ResponseDto.ok(likePosts);
+  }
 }

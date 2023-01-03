@@ -1,13 +1,13 @@
 import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
-import {Model} from 'mongoose';
+import mongoose, {Model} from 'mongoose';
 import {SchemaName} from 'src/common/constants/schema';
 import {HttpException} from 'src/common/exceptions';
 import {User} from 'src/user/schemas/user.schema';
 import {CreatePostDto} from './dto/create-post.dto';
 import {LikePostDto} from './dto/like-post.dto';
 import {PostQuery} from './dto/post.query';
-import {LikePostDocument} from './schemas/like-post.schema';
+import {LikePost, LikePostDocument} from './schemas/like-post.schema';
 import {Post, PostDocument} from './schemas/post.schema';
 import {ERROR} from 'src/common/constants/list-errors';
 
@@ -35,11 +35,10 @@ export class PostService {
       ...dto,
     });
     await post.save();
-
     return post;
   }
 
-  async likePost(user: User, dto: LikePostDto): Promise<Post> {
+  async likePost(user: User, dto: LikePostDto): Promise<LikePost> {
     let likePost = null;
     const post = await this.postModel.findById(dto.post);
     if (!post) throw HttpException.notFound(ERROR.RESOURCES_NOT_FOUND);
@@ -48,8 +47,28 @@ export class PostService {
       post: dto.post,
     };
     likePost = await this.likePostModel.findOne(toLikePost);
-    if (likePost) throw HttpException.badRequest(ERROR.ALREADY_LIKED);
-    likePost = await this.likePostModel.create(toLikePost);
+    if (likePost) {
+      likePost.remove();
+    } else {
+      likePost = new this.likePostModel({
+        ...toLikePost,
+      });
+      await likePost.save();
+    }
     return likePost;
+  }
+  async getListLikePosts(user: User): Promise<Post[]> {
+    let posts = [];
+    const listLike = await this.likePostModel.find({user});
+    if (listLike.length === 0) return posts;
+
+    posts = await this.postModel.find({
+      $or: [
+        ...listLike.map(like => ({
+          _id: like.post,
+        })),
+      ],
+    });
+    return posts;
   }
 }

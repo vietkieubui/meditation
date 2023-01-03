@@ -8,8 +8,8 @@ import {PostSchema} from './schemas/post.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{name: SchemaName.POST, schema: PostSchema}]),
     MongooseModule.forFeature([
+      {name: SchemaName.POST, schema: PostSchema},
       {name: SchemaName.LIKEPOST, schema: LikePostSchema},
     ]),
   ],

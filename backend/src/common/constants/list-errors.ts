@@ -50,6 +50,10 @@ export const ERROR = {
     code: 'resources_not_found',
     message: 'Không tìm thấy bản ghi!',
   },
+  ALREADY_LIKED: {
+    code: 'already_liked',
+    message: 'Post này đã like!',
+  },
 
   ACCOUNT_BANNED: {
     code: 'account_is_banned',
@@ -75,11 +79,9 @@ export const ERROR = {
     code: 'handicap_not_correct',
     message: 'Số handicap chỉ được nằm trong khoảng từ 1 đến 33',
   },
-  
-  
+
   WEBSOCKET_UNAUTHENTICATED: {
     message: 'You are unauthenticated',
     code: 'WEBSOCKET_UNAUTHENTICATED',
   },
-  
 };

@@ -1,5 +1,7 @@
 export enum SchemaName {
-  USER = 'User',  
+  USER = 'User',
   CONVERSATION = 'Conversation',
-  MESSAGE = 'Message', 
+  MESSAGE = 'Message',
+  POST = 'Post',
+  LIKEPOST = 'LikePost',
 }

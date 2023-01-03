@@ -18,9 +18,13 @@ const app_service_1 = require("./app.service");
 const auth_module_1 = require("./auth/auth.module");
 const conversation_module_1 = require("./conversation/conversation.module");
 const gateway_module_1 = require("./gateway/gateway.module");
+<<<<<<< HEAD
 const message_module_1 = require("./message/message.module");
 const tracks_module_1 = require("./tracks/tracks.module");
 const user_module_1 = require("./user/user.module");
+=======
+const post_module_1 = require("./post/post.module");
+>>>>>>> master
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -41,6 +45,7 @@ AppModule = __decorate([
             conversation_module_1.ConversationModule,
             message_module_1.MessageModule,
             gateway_module_1.GatewayModule,
+            post_module_1.PostModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

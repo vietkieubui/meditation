@@ -2,12 +2,12 @@ import {
   HttpException as DefaultHttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { ResponseErrorDto } from '../dto';
-import { ERROR } from '../constants';
+import {ResponseErrorDto} from '../dto';
+import {ERROR} from '../constants';
 
 export class HttpException extends DefaultHttpException {
   public static badRequest(
-    error: ResponseErrorDto = { message: 'Bad request!', code: null },
+    error: ResponseErrorDto = {message: 'Bad request!', code: null},
   ): HttpException {
     return new HttpException(error, HttpStatus.BAD_REQUEST);
   }

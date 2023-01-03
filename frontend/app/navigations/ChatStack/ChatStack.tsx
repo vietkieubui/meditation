@@ -24,7 +24,7 @@ class ChatStack extends React.Component {
     this.getMessages();
 
     //start socket connections
-    this.socket = io('http://10.29.246.59:3001/');
+    this.socket = io('http://10.40.20.186:3001/');
     this.socket.connect();
     this.socket.on('incommingMessage', () => {
       console.log('called');

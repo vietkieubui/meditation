@@ -10,10 +10,10 @@ import React, { useContext, useEffect } from 'react';
 import { Keyboard, Platform, Pressable, StatusBar } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ChatStack from './ChatStack/ChatStack';
 import HomeStack from './HomeStack/HomeStack';
 import MeditationStack from './MeditationStack/MeditationStack';
 import ProfileStack from './ProfileStack/ProfileStack';
-import SleepStack from './SleepStack/SleepStack';
 const Tab = createBottomTabNavigator();
 
 const AnimatedPress = Animated.createAnimatedComponent(Pressable);
@@ -98,7 +98,7 @@ const MyTabBar: React.FC<MyTabBarProps> = ({
           );
       }
     };
-  }, []);
+  }, [tabHeight]);
 
   return (
     <>
@@ -216,21 +216,28 @@ function MainTab() {
           name={MainTabRoutes.HomeStack}
           component={HomeStack}
           options={{
-            tabBarLabel: 'Home',
+            tabBarLabel: 'Trang chủ',
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name={MainTabRoutes.SleepStack}
           component={SleepStack}
           options={{
             tabBarLabel: 'Sleep',
           }}
-        />
+        /> */}
         <Tab.Screen
           name={MainTabRoutes.MeditationStack}
           component={MeditationStack}
           options={{
             tabBarLabel: 'Meditation',
+          }}
+        />
+        <Tab.Screen
+          name={MainTabRoutes.ChatStack}
+          component={ChatStack}
+          options={{
+            tabBarLabel: 'Nhắn tin',
           }}
         />
         <Tab.Screen
@@ -244,7 +251,7 @@ function MainTab() {
           name={MainTabRoutes.ProfileStack}
           component={ProfileStack}
           options={{
-            tabBarLabel: 'Account',
+            tabBarLabel: 'Tài khoản',
           }}
         />
       </Tab.Navigator>

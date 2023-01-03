@@ -31,7 +31,7 @@ const PomodoroClock = () => {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [pause, timer]);
 
   const handleClick = () => {
     if (timer < 1) {
@@ -58,14 +58,16 @@ const PomodoroClock = () => {
       style={{
         padding: 20,
       }}>
-      <MyText center>Pomodoro Clock</MyText>
+      <MyText center>Đồng hồ Pomodoro</MyText>
 
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
+          paddingTop:50
+
         }}>
-        <MyText fontSize={30}>Timer</MyText>
+        <MyText fontSize={30}>Đếm ngược</MyText>
         <MyText fontSize={30}>{secondsToHHMMSS(timer)}</MyText>
       </View>
 
@@ -128,7 +130,7 @@ const PomodoroClock = () => {
           alignSelf: 'center',
         }}
         onPress={handleClick}>
-        <MyText color={'#fff'}>{pause ? 'Run' : 'Pause'}</MyText>
+        <MyText color={'#fff'}>{pause ? 'Bắt đầu' : 'Dừng'}</MyText>
       </Pressable>
     </SafeView>
   );

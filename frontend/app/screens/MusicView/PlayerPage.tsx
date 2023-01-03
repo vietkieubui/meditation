@@ -1,18 +1,17 @@
-import {downloadError} from '@constants/errors';
-import {TrackProps} from '@constants/Interfaces';
-import {requestStoragePermission} from '@constants/permissions';
-import {AudioDirectoryPath, DirectoryPath} from '@constants/saveconst';
-import {MyText, SafeView} from '@elements/SharedElements';
-import {Container} from '@elements/Styles';
-import {useAudioHelper} from '@helpers/audio-helper';
+import { downloadError } from '@constants/errors';
+import { TrackProps } from '@constants/Interfaces';
+import { requestStoragePermission } from '@constants/permissions';
+import { AudioDirectoryPath, DirectoryPath } from '@constants/saveconst';
+import { MyText, SafeView } from '@elements/SharedElements';
+import { Container } from '@elements/Styles';
+import { useAudioHelper } from '@helpers/audio-helper';
 import useNavHelper from '@helpers/navHelper';
 import useStyle from '@hooks/useStyle';
 import Player from '@screens/Player/Player';
-import React, {useEffect, useState} from 'react';
-import {Alert, BackHandler, Platform, ToastAndroid, View} from 'react-native';
-import RNFS, {DownloadProgressCallbackResult} from 'react-native-fs';
-import {useSharedValue} from 'react-native-reanimated';
-import Header from './Header';
+import React, { useEffect, useState } from 'react';
+import { Alert, BackHandler, Platform, ToastAndroid, View } from 'react-native';
+import RNFS, { DownloadProgressCallbackResult } from 'react-native-fs';
+import { useSharedValue } from 'react-native-reanimated';
 
 const PlayerPage = (props: any) => {
   const {item}: {item: TrackProps} = props.route.params;
@@ -49,7 +48,7 @@ const PlayerPage = (props: any) => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [item.id]);
 
   const player = useAudioHelper({
     listSounds: [
@@ -62,6 +61,8 @@ const PlayerPage = (props: any) => {
     ],
   });
 
+  
+
   useEffect(() => {
     const backAction = () => {
       handleBack();
@@ -73,7 +74,7 @@ const PlayerPage = (props: any) => {
       backAction,
     );
     return () => backHandler.remove();
-  }, []);
+  }, [handleBack]);
 
   const Toast = ({visible, message}: {visible: boolean; message: string}) => {
     if (visible && Platform.OS === 'android') {
@@ -125,14 +126,14 @@ const PlayerPage = (props: any) => {
 
   return (
     <SafeView>
-      <Header
+      {/* <Header
         backHandler={handleBack}
         {...{item}}
         {...{downloadData}}
         {...{headerShown}}
         {...{downloaded}}
         downloadProgress={downloadProgress.value}
-      />
+      /> */}
 
       <Toast visible={visibleToast} message={toastMessage} />
       <View style={Container.centerContainer}>

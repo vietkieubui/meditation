@@ -48,7 +48,7 @@ const Profile = () => {
             style={{
               width: 70,
               height: 70,
-              backgroundColor: '#ff0000',
+              backgroundColor: '#A5AEFF',
               borderRadius: 50,
             }}
           />
@@ -68,7 +68,7 @@ const Profile = () => {
 
 
       </View>
-      <View style={styles.followerView}>
+      {/* <View style={styles.followerView}>
         <View>
           <MyText center>5</MyText>
           <MyText color={color.grey}>Days</MyText>
@@ -81,10 +81,10 @@ const Profile = () => {
           <MyText center>600</MyText>
           <MyText color={color.grey}>Following</MyText>
         </View>
-      </View>
+      </View> */}
 
       <View style={{ marginTop: 30 }}>
-        <MyText>My Schedule</MyText>
+        <MyText>Lịch của tôi</MyText>
         <View style={{ paddingHorizontal: 10 }}>
           <View
             style={{
@@ -93,7 +93,7 @@ const Profile = () => {
               marginVertical: 20,
               flexWrap: 'wrap',
             }}>
-            <MyText fontSize={25}>Time: </MyText>
+            <MyText fontSize={25}>Thời gian: </MyText>
             <Pressable
               onPress={showTime}
               style={{
@@ -133,7 +133,7 @@ const Profile = () => {
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <MyText fontSize={25}>Recieve Daily Notification</MyText>
+          <MyText fontSize={25}>Nhận thông báo hằng ngày</MyText>
           <Switch
             trackColor={{ false: '#767577', true: '#81b0ff' }}
             thumbColor={isEnabled ? '#81b0ff' : '#f4f3f4'}
@@ -148,13 +148,13 @@ const Profile = () => {
           style={{
             width: '100%',
             height: 70,
-            backgroundColor: '#ff0000',
+            backgroundColor: '#0081C9',
             borderRadius: 50,
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: 30,
           }}>
-          <MyText fontSize={30}>Upload Track</MyText>
+          <MyText fontSize={30}>Đăng nhạc</MyText>
         </Pressable>
       </View>
     </SafeView>

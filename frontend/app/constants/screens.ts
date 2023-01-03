@@ -5,6 +5,7 @@ export const MainTabRoutes = {
   PomodoroStack: 'PomodoroStack',
   ProfileStack: 'ProfileStack',
   DownloadedMusicStack: 'DownloadedMusicStack',
+  ChatStack: 'ChatStack',
 };
 
 export const SleepStackRoutes = {
@@ -24,6 +25,7 @@ export const HomeStackRoutes = {
   Home: 'Home',
   TopicMusic: 'TopicMusic',
 };
+
 
 export const MainStackRoutes = {
   MainTab: 'MainTab',

@@ -1,28 +1,28 @@
 export const categories = [
   {
-    title: 'All',
+    title: 'Tất cả',
     icon: 'all-inclusive',
     category: 'all',
   },
   {
-    title: 'My Fav',
+    title: 'Yêu thích',
     icon: 'heart',
     category: 'fav',
   },
   {
-    title: 'Anxious',
+    title: 'Lo lắng',
     icon: 'emoticon-sad',
     category: 'anxious',
   },
   {
-    title: 'Sleep',
+    title: 'Giấc ngủ',
     icon: 'power-sleep',
     category: 'sleep',
   },
 
-  {
-    title: 'Kids',
-    icon: 'human-child',
-    category: 'kid',
-  },
+  // {
+  //   title: 'Kids',
+  //   icon: 'human-child',
+  //   category: 'kid',
+  // },
 ];

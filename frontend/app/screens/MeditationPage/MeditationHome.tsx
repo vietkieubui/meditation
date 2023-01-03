@@ -1,13 +1,13 @@
-import {categories} from '@constants/categories';
-import {CategoryProps, TrackProps} from '@constants/Interfaces';
-import {MyText, SafeView} from '@elements/SharedElements';
+import { categories } from '@constants/categories';
+import { CategoryProps, TrackProps } from '@constants/Interfaces';
+import { MyText, SafeView } from '@elements/SharedElements';
 import useNavHelper from '@helpers/navHelper';
 import useStyle from '@hooks/useStyle';
-import {tracks} from '@screens/MusicView/tracks';
+import { tracks } from '@screens/MusicView/tracks';
 import MusicCard from '@shared/MusicCard';
-import {HomeSkeleton} from '@shared/Skeletons';
+import { HomeSkeleton } from '@shared/Skeletons';
 import UserCategory from '@shared/UserCategory';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dimensions,
   Image,
@@ -15,7 +15,7 @@ import {
   RefreshControl,
   ScrollView,
   StyleSheet,
-  View,
+  View
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -89,12 +89,12 @@ const MeditationHome = () => {
             marginBottom: 10,
           }}>
           <MyText bold title center>
-            Meditate
+            Suy ngẫm
           </MyText>
-          <MyText color={color.grey} center fontSize={13}>
+          {/* <MyText color={color.grey} center fontSize={13}>
             We can learn how to recognize when our minds are doing their normal
             everyday acrobatics.
-          </MyText>
+          </MyText> */}
         </View>
         <View style={{height: 80}}>
           <UserCategory {...{itemSelected}} {...{selected}} />

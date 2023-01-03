@@ -11,7 +11,7 @@ import { RecoilRoot } from 'recoil';
 import AuthContextProvider from './app/context/AuthContextProvider';
 import MainApp from './app/MainApp';
 
-export const HOST = '172.20.10.3';
+export const HOST = '10.29.246.59';
 export const PORT = '3001';
 
 export const queryClient = new QueryClient({

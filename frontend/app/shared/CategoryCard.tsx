@@ -1,7 +1,7 @@
-import {TopicsProps} from '@constants/Interfaces';
-import {MyText} from '@elements/SharedElements';
+import { TopicsProps } from '@constants/Interfaces';
+import { MyText } from '@elements/SharedElements';
 import React from 'react';
-import {Dimensions, Image, Pressable, StyleSheet, View} from 'react-native';
+import { Dimensions, Image, Pressable, StyleSheet, View } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -46,7 +46,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({item, onPress}) => {
             alignItems: 'center',
           }}>
           <MyText fontSize={14} color={textColor}>
-            5-10 min
+            5-10 phút
           </MyText>
           <MyText
             style={{
@@ -58,7 +58,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({item, onPress}) => {
               width: 80,
             }}
             center>
-            Start
+            Xem
           </MyText>
         </View>
       </View>

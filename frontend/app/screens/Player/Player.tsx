@@ -1,13 +1,13 @@
-import {MyText} from '@elements/SharedElements';
+import { MyText } from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
 import Slider from '@react-native-community/slider';
-import React, {useEffect, useState} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import MusicControl from 'react-native-music-control';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
+  withSpring
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -40,7 +40,7 @@ const Player = ({player}: any) => {
 
   useEffect(() => {
     playScale.value = Math.random() * 6 + 2;
-  }, [player]);
+  }, [playScale, player]);
 
   const playStyle = useAnimatedStyle(() => {
     return {

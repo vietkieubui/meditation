@@ -5,7 +5,10 @@ import {User} from '../user/schemas/user.schema';
 import {BaseQuery} from 'src/common/dto/base.query';
 import {ResponseDto} from 'src/common/dto';
 import {Conversation} from './schemas/conversation.schema';
-import {CreateConversationDto} from './dto/create-conversation.dto';
+import {
+  CreateConversationByPhoneNumberDto,
+  CreateConversationDto,
+} from './dto/create-conversation.dto';
 
 @Controller('conversation')
 export class ConversationController {
@@ -20,6 +23,16 @@ export class ConversationController {
       user,
       dto,
     );
+    return ResponseDto.ok(conversation);
+  }
+
+  @Post('/phonenumber')
+  async createConversationByPhoneNumber(
+    @RequestUser() user: User,
+    @Body() dto: CreateConversationByPhoneNumberDto,
+  ): Promise<ResponseDto<Conversation>> {
+    const conversation =
+      await this.conversationService.createConversationByPhoneNumber(user, dto);
     return ResponseDto.ok(conversation);
   }
 

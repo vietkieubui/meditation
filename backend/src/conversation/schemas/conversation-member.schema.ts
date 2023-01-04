@@ -1,8 +1,8 @@
-import { Prop, Schema } from '@nestjs/mongoose';
-import { Type } from 'class-transformer';
+import {Prop, Schema} from '@nestjs/mongoose';
+import {Type} from 'class-transformer';
 import mongoose from 'mongoose';
-import { SchemaName } from '../../common/constants/schema';
-import { User } from '../../user/schemas/user.schema';
+import {SchemaName} from '../../common/constants/schema';
+import {User} from '../../user/schemas/user.schema';
 
 @Schema({
   versionKey: false,
@@ -17,7 +17,6 @@ export class ConversationMember {
     autopopulate: true,
   })
   user: User;
-  
 
   constructor(partial: Partial<ConversationMember>) {
     Object.assign(this, partial);

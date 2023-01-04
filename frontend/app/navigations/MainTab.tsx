@@ -1,14 +1,14 @@
 import colors from '@constants/colors';
-import { MainTabRoutes } from '@constants/screens';
-import { BottomTabContext } from '@context/BottomTabContext';
-import { MyText } from '@elements/SharedElements';
+import {MainTabRoutes} from '@constants/screens';
+import {BottomTabContext} from '@context/BottomTabContext';
+import {MyText} from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import PomodoroClock from '@screens/Pomodoro/PomodoroClock';
 import moment from 'moment';
-import React, { useContext, useEffect } from 'react';
-import { Keyboard, Platform, Pressable, StatusBar } from 'react-native';
-import Animated, { useAnimatedStyle } from 'react-native-reanimated';
+import React, {useContext, useEffect} from 'react';
+import {Keyboard, Platform, Pressable, StatusBar} from 'react-native';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ChatStack from './ChatStack/ChatStack';
 import HomeStack from './HomeStack/HomeStack';
@@ -148,7 +148,7 @@ const MyTabBar: React.FC<MyTabBarProps> = ({
               iconName = 'power-sleep';
               break;
             case 2:
-              iconName = 'meditation';
+              iconName = 'chat';
               break;
             case 3:
               iconName = `clock-time-${time}`;

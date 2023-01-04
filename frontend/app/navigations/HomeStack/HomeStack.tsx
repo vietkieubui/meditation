@@ -1,6 +1,6 @@
-import { HomeStackRoutes } from '@constants/screens';
+import {HomeStackRoutes} from '@constants/screens';
 import useStyle from '@hooks/useStyle';
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import Home from '@screens/HomePage/Home';
 // import Home from '@screens/HomePage/Home';
 import TopicMusic from '@screens/HomePage/TopicMusic';

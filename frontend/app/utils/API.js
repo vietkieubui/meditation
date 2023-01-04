@@ -6,7 +6,7 @@ class API {
       method = 'GET',
       url,
       params,
-      baseURL = 'http://10.40.20.186:3001/',
+      baseURL = 'http://10.29.248.114:3001/',
       headers,
     } = config;
 
@@ -40,7 +40,6 @@ class API {
 
     return axios(requestConfig)
       .then(response => {
-        // console.log('API.response:', response);
         const {data, status, error} = response;
 
         if (status !== 200 && status !== 201) {

@@ -95,8 +95,9 @@ const TrackUpload = () => {
 
   if (loading)
     return (
-      // <LottieView source={require('@assets/lottie/update.json')} autoPlay />
-      <MyText>Uploading</MyText>
+      <>
+        <MyText>Uploading</MyText>
+      </>
     );
 
   if (error) return <MyText>{error.message}</MyText>;

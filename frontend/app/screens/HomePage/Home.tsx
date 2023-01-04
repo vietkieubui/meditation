@@ -1,20 +1,21 @@
-import { TopicsProps } from '@constants/Interfaces';
-import { HomeStackRoutes } from '@constants/screens';
-import { ThemeContext } from '@context/ThemeContext';
-import { MyText, SafeView } from '@elements/SharedElements';
+import {TopicsProps} from '@constants/Interfaces';
+import {HomeStackRoutes} from '@constants/screens';
+import {ThemeContext} from '@context/ThemeContext';
+import {MyText, SafeView} from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
-import { useNavigation } from '@react-navigation/core';
-import { topics } from '@screens/TopicChoose/topics';
+import {useNavigation} from '@react-navigation/core';
+import {topics} from '@screens/TopicChoose/topics';
 import CategoryCard from '@shared/CategoryCard';
 import HomeCard from '@shared/HomeCard';
-import { HomeSkeleton, HorizontalSkeleton } from '@shared/Skeletons';
-import React, { useContext, useEffect, useState } from 'react';
+import {HomeSkeleton, HorizontalSkeleton} from '@shared/Skeletons';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Dimensions,
-  FlatList, RefreshControl,
+  FlatList,
+  RefreshControl,
   ScrollView,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -77,13 +78,22 @@ const Home = () => {
             colors={[color.inverse]}
           />
         }>
-        <MyText center style={{marginVertical: 10}}>
+        <MyText
+          bold
+          title
+          center
+          style={{
+            marginTop: 20,
+            paddingHorizontal: 10,
+            width: width * 0.8,
+            alignSelf: 'center',
+          }}>
           Trang Chủ
         </MyText>
-        
+
         <View style={{marginVertical: 20, paddingHorizontal: 10}}>
           <MyText bold title>
-          {time} 
+            {time}
           </MyText>
           <MyText color={color.grey}>Chúc bạn một ngày tốt lành</MyText>
         </View>
@@ -113,7 +123,7 @@ const Home = () => {
           }}>
           Music
         </MyButton> */}
-       
+
         <View style={{paddingHorizontal: 10, marginBottom: 20}}>
           <MyText fontSize={30}>Đề xuất cho bạn</MyText>
 

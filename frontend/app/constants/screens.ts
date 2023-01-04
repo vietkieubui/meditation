@@ -17,6 +17,11 @@ export const MeditationStackRoutes = {
   Music: 'Music',
 };
 
+export const ChatStackRoutes = {
+  Chat: 'Chat',
+  Message: 'Message',
+};
+
 export const ProfileStackRoutes = {
   Profile: 'Profile',
 };

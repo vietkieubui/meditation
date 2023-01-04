@@ -4,11 +4,11 @@ import {ThemeContext} from '@context/ThemeContext';
 import {MyText, SafeView} from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 import React, {useContext, useState} from 'react';
 import {Alert, Pressable, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import moment from 'moment';
 
 export const Days = (props: any) => {
   const {setAllDay, allDay, day} = props;

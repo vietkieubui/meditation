@@ -1,13 +1,13 @@
-import { categories } from '@constants/categories';
-import { CategoryProps, TrackProps } from '@constants/Interfaces';
-import { MyText, SafeView } from '@elements/SharedElements';
+import {categories} from '@constants/categories';
+import {CategoryProps, TrackProps} from '@constants/Interfaces';
+import {MyText, SafeView} from '@elements/SharedElements';
 import useNavHelper from '@helpers/navHelper';
 import useStyle from '@hooks/useStyle';
-import { tracks } from '@screens/MusicView/tracks';
+import {tracks} from '@screens/MusicView/tracks';
 import MusicCard from '@shared/MusicCard';
-import { HomeSkeleton } from '@shared/Skeletons';
+import {HomeSkeleton} from '@shared/Skeletons';
 import UserCategory from '@shared/UserCategory';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -15,7 +15,7 @@ import {
   RefreshControl,
   ScrollView,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -82,14 +82,14 @@ const MeditationHome = () => {
         }>
         <View
           style={{
-            marginTop: 40,
+            marginTop: 20,
             paddingHorizontal: 10,
             width: width * 0.8,
             alignSelf: 'center',
-            marginBottom: 10,
+            marginBottom: 40,
           }}>
           <MyText bold title center>
-            Suy ngẫm
+            Meditation
           </MyText>
           {/* <MyText color={color.grey} center fontSize={13}>
             We can learn how to recognize when our minds are doing their normal

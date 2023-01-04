@@ -17,7 +17,6 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import useStyle from '../hooks/useStyle';
 import {Container} from './Styles';
 

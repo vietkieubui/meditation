@@ -7,7 +7,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 const APPLEWIDTH = 260;
@@ -96,7 +95,9 @@ const PomodoroClock = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Icon name="apple-alt" size={APPLEWIDTH} color={'#000'} />
+              <Icon name="rocket" size={APPLEWIDTH} color={'#000'} />
+              
+
             </View>
           }>
           <AnimatedLinearGradient

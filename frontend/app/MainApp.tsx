@@ -1,11 +1,12 @@
-import { HEIGHT } from '@constants/const';
-import { MyText } from '@elements/SharedElements';
+import {HEIGHT} from '@constants/const';
+import {MyText} from '@elements/SharedElements';
 import useNavHelper from '@helpers/navHelper';
-import { useNetInfo } from '@react-native-community/netinfo';
-import { accessTokenState } from '@state-management/access-token';
-import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import { useRecoilValue } from 'recoil';
+import {useNetInfo} from '@react-native-community/netinfo';
+import {accessTokenState} from '@state-management/access-token';
+import API from '@utils/API';
+import React, {useEffect, useState} from 'react';
+import {Pressable, StyleSheet} from 'react-native';
+import {useRecoilValue} from 'recoil';
 import AuthStack from './navigations/AuthStack/AuthStack';
 import MainStack from './navigations/MainStack';
 
@@ -14,6 +15,7 @@ const MainApp = () => {
   const [show, setShow] = useState(false);
   const netInfo = useNetInfo();
   const accessToken = useRecoilValue(accessTokenState);
+  API.accessToken = accessToken;
 
   useEffect(() => {
     if (netInfo.isConnected) {

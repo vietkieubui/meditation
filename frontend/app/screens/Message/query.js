@@ -7,7 +7,7 @@ export const useGetMessage = id => {
       url: `/message`,
       params: {conversation: id},
     }).then(response => {
-      return response?.data || [];
+      return response?.data;
     }),
   );
 };

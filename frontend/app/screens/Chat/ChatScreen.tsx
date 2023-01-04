@@ -1,7 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {memo, useCallback, useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
-import {GiftedChat} from 'react-native-gifted-chat';
+import {activeProfileAtom} from '@utils/active-profile';
+import moment from 'moment';
+import React, {memo, useRef} from 'react';
+import {FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {useRecoilValue} from 'recoil';
 import {
   Card,
   Container,
@@ -14,101 +16,79 @@ import {
   UserInfoText,
   UserName,
 } from './ChatStyles';
+import ModalSearch from './modal.search';
 import {useGetConversation} from './query';
-
-const Messages = [
-  {
-    id: '1',
-    userName: '1-Jenny Doe',
-    userImg: require('../../assets/images/1.png'),
-    messageTime: '4 min ago',
-    messageText: 'Helllooooo',
-  },
-  {
-    id: '2',
-    userName: '2-Jenny Doe',
-    userImg: require('../../assets/images/2.png'),
-    messageTime: '4 min ago',
-    messageText: 'Helllooooo',
-  },
-  {
-    id: '3',
-    userName: '3-Jenny Doe',
-    messageTime: '4 min ago',
-    userImg: require('../../assets/images/3.png'),
-    messageText: 'Helllooooo',
-  },
-  {
-    id: '4',
-    userName: '4-Jenny Doe',
-    messageTime: '4 min ago',
-    userImg: require('../../assets/images/4.png'),
-    messageText: 'Helllooooo',
-  },
-];
 
 const ChatStack = () => {
   const navigation = useNavigation();
+  const activeProfile = useRecoilValue(activeProfileAtom);
+  const modalSearchRef = useRef();
 
   const {data} = useGetConversation();
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]);
-  }, []);
-
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages),
-    );
-  }, []);
 
   return (
     <Container>
       <FlatList
-        data={Messages}
+        data={data}
         keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <Card
-            onPress={() =>
-              navigation.navigate('Message', {userName: item.userName})
-            }>
-            <UserInfo>
-              <UserImgWrapper>
-                <UserImg source={item.userImg} />
-              </UserImgWrapper>
-              <TextSection>
-                <UserInfoText>
-                  <UserName>{item.userName}</UserName>
-                  <PostTime>{item.messageTime}</PostTime>
-                </UserInfoText>
-                <MessageText>{item.messageText}</MessageText>
-              </TextSection>
-            </UserInfo>
-          </Card>
-        )}
-      />
+        renderItem={({item}) => {
+          const getUser = item?.members.filter(
+            element => element.user._id !== activeProfile._id,
+          );
 
-      <GiftedChat
-        messages={messages}
-        onSend={messages => onSend(messages)}
-        user={{
-          _id: 1,
+          return (
+            <Card
+              onPress={() =>
+                navigation.navigate('Message', {
+                  id: item.id,
+                })
+              }>
+              <UserInfo>
+                <UserImgWrapper>
+                  <UserImg source={require('../../assets/images/2.png')} />
+                </UserImgWrapper>
+                <TextSection>
+                  <UserInfoText>
+                    <UserName>{getUser[0]?.user?.name}</UserName>
+                    <PostTime>
+                      {moment(getUser[0]?.user?.updatedAt).format('h:mm A')}
+                    </PostTime>
+                  </UserInfoText>
+                  <MessageText>{getUser[0]?.user.phoneNumber}</MessageText>
+                </TextSection>
+              </UserInfo>
+            </Card>
+          );
         }}
       />
+
+      <TouchableOpacity
+        style={styles.searchButton}
+        onPress={() => {
+          modalSearchRef.current?.showModal();
+        }}>
+        <Text style={styles.searchButtonText}>+</Text>
+      </TouchableOpacity>
+      <ModalSearch ref={modalSearchRef} />
     </Container>
   );
 };
 
 export default memo(ChatStack);
+
+const styles = StyleSheet.create({
+  searchButton: {
+    backgroundColor: '#FF7B54',
+    height: 50,
+    width: 50,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '10%',
+    marginRight: '-85%',
+  },
+  searchButtonText: {
+    color: 'white',
+    fontSize: 20,
+  },
+});

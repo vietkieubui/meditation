@@ -5,13 +5,15 @@ import BottomTabContextProvider from '@context/BottomTabContext';
 import ThemeContextProvider from '@context/ThemeContext';
 import {client} from '@graphql/client';
 import {NavigationContainer} from '@react-navigation/native';
+import {toastConfig} from '@utils/helpers';
 import React, {Suspense} from 'react';
+import Toast from 'react-native-toast-message';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {RecoilRoot} from 'recoil';
 import AuthContextProvider from './app/context/AuthContextProvider';
 import MainApp from './app/MainApp';
 
-export const HOST = '10.29.248.114';
+export const HOST = '192.168.43.30';
 export const PORT = '3001';
 
 export const queryClient = new QueryClient({
@@ -33,6 +35,7 @@ const App = () => {
                 <BottomTabContextProvider>
                   <AuthContextProvider>
                     <MainApp />
+                    <Toast config={toastConfig} />
                   </AuthContextProvider>
                 </BottomTabContextProvider>
               </ThemeContextProvider>

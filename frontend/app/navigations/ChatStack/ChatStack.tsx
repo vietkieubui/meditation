@@ -4,7 +4,7 @@
 //importing libraries
 import axios from 'axios';
 import React from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import io from 'socket.io-client';
 
 class ChatStack extends React.Component {
@@ -24,7 +24,7 @@ class ChatStack extends React.Component {
     this.getMessages();
 
     //start socket connections
-    this.socket = io('http://10.40.20.186:3001/');
+    this.socket = io('http://192.168.31.74:3001/');
     this.socket.connect();
     this.socket.on('incommingMessage', () => {
       console.log('called');

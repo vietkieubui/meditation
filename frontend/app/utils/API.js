@@ -6,7 +6,7 @@ class API {
       method = 'GET',
       url,
       params,
-      baseURL = 'http://10.40.20.186:3001/',
+      baseURL = 'http://192.168.31.74:3001/',
       headers,
     } = config;
 

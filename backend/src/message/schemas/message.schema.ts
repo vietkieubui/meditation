@@ -1,7 +1,7 @@
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
-import { TransformObjectId } from '../../common/decorators';
-import { SchemaName } from '../../common/constants/schema';
+import {Schema, Prop, SchemaFactory} from '@nestjs/mongoose';
+import mongoose, {Document} from 'mongoose';
+import {TransformObjectId} from '../../common/decorators';
+import {SchemaName} from '../../common/constants/schema';
 
 export type MessageDocument = Message & Document;
 
@@ -16,7 +16,7 @@ export class Message {
   @TransformObjectId()
   _id: string;
 
-  @Prop({ length: 225, type: String })
+  @Prop({length: 225, type: String})
   content: string;
 
   @TransformObjectId()
@@ -30,7 +30,7 @@ export class Message {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: SchemaName.USER,
-    autopopulate: { select: 'name phoneNumber' },
+    autopopulate: {select: 'name phoneNumber'},
   })
   sentBy: string;
 

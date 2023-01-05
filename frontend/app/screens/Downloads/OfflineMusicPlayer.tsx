@@ -1,6 +1,5 @@
 import {MyText, SafeView} from '@elements/SharedElements';
 import {Container} from '@elements/Styles';
-import {useAudioHelper} from '@helpers/audio-helper';
 import useNavHelper from '@helpers/navHelper';
 import Player from '@screens/Player/Player';
 import React, {useEffect} from 'react';
@@ -13,24 +12,23 @@ const OfflineMusicPlayer = (props: any) => {
   const {path, name}: {path: string; name: string} = props.route.params;
   const {handleBack} = useNavHelper();
 
-  const player = useAudioHelper({
-    listSounds: [
-      {
-        type: 'undefined',
-        path: path,
-        name: name,
-      },
-    ],
-  });
+  // const player = useAudioHelper({
+  //   listSounds: [
+  //     {
+  //       type: 'undefined',
+  //       path: path,
+  //       name: name,
+  //     },
+  //   ],
+  // });
 
   useEffect(() => {
     const backAction = () => {
-      if (player) {
-        handleBack();
-        return true;
-      } else {
-        return false;
-      }
+      // if (player) {
+      //   handleBack();
+      //   return true;
+      // }
+      return false;
     };
 
     const backHandler = BackHandler.addEventListener(
@@ -38,7 +36,7 @@ const OfflineMusicPlayer = (props: any) => {
       backAction,
     );
     return () => backHandler.remove();
-  }, []);
+  }, [handleBack]);
 
   const deleteOffline = async () => {
     await RNFS.unlink(path)
@@ -93,7 +91,8 @@ const OfflineMusicPlayer = (props: any) => {
           </MyText>
         </View>
 
-        <Player {...{player}} />
+        <Player />
+        {/* <Player {...{player}} /> */}
       </View>
     </SafeView>
   );

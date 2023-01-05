@@ -106,7 +106,7 @@ const MusicPage = (props: any) => {
             }}
             onPress={() => goToMusicPage(item)}>
             <MyText center title color={color.white}>
-              Play Music
+              Chơi nhạc
             </MyText>
           </Pressable>
 
@@ -120,7 +120,7 @@ const MusicPage = (props: any) => {
             }}
             onPress={deleteMusic}>
             <MyText center title color={color.white}>
-              Delete Music
+              Xoá nhạc
             </MyText>
           </Pressable>
 
@@ -134,11 +134,11 @@ const MusicPage = (props: any) => {
             }}
             onPress={editMusic}>
             <MyText center title color={color.white}>
-              Edit Music
+              Sửa nhạc
             </MyText>
           </Pressable>
 
-          <MyText fontSize={30}>Related</MyText>
+          <MyText fontSize={30}>Liên quan</MyText>
           <View style={{marginBottom: 20}}>
             <View
               style={{

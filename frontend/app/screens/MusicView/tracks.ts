@@ -49,7 +49,7 @@ export const tracks: any = [
   },
   {
     id: 'ZDDE5sqC',
-    url: 'https://www.chosic.com/wp-content/uploads/2021/05/inossi-got-you.mp3',
+    url: '',
     title: 'Got You',
     artist: 'First',
     artwork: 'https://picsum.photos/id/103/200/300',

@@ -1,7 +1,7 @@
 import {MyText} from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
 import Slider from '@react-native-community/slider';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import MusicControl from 'react-native-music-control';
 import Animated, {
@@ -19,16 +19,16 @@ const Player = ({player}: any) => {
   const playScale = useSharedValue(6);
   const pressPadding = useSharedValue(20);
 
-  const play = () => {
-    player.play();
+  const onPlay = useCallback(() => {
+    player?.play();
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PLAYING,
     });
     pressPadding.value = withSpring(20);
-  };
+  }, [player, pressPadding]);
 
-  const pause = () => {
-    player.pause();
+  const onPause = useCallback(() => {
+    player?.pause();
     MusicControl.stopControl();
     pressPadding.value = withSpring(15);
     //@ts-ignore
@@ -36,7 +36,7 @@ const Player = ({player}: any) => {
       //@ts-ignore
       global.sound === undefined;
     }
-  };
+  }, [player, pressPadding]);
 
   useEffect(() => {
     playScale.value = Math.random() * 6 + 2;
@@ -57,7 +57,7 @@ const Player = ({player}: any) => {
   return (
     <>
       <View style={styles.switches}>
-        <Pressable onPress={player.rewind10s}>
+        <Pressable onPress={player?.rewind10s}>
           <MaterialIcons name="replay-10" size={35} color={color.inverse} />
         </Pressable>
         <View
@@ -76,9 +76,9 @@ const Player = ({player}: any) => {
               },
               playStyle,
             ]}>
-            {player.status === 'play' ? (
+            {player?.status === 'play' ? (
               <AnimaedPressable
-                onPress={pause}
+                onPress={onPause}
                 style={[
                   {
                     backgroundColor: color.inverse,
@@ -90,7 +90,7 @@ const Player = ({player}: any) => {
               </AnimaedPressable>
             ) : (
               <AnimaedPressable
-                onPress={play}
+                onPress={onPlay}
                 style={[
                   {
                     backgroundColor: color.inverse,
@@ -103,7 +103,7 @@ const Player = ({player}: any) => {
             )}
           </Animated.View>
         </View>
-        <Pressable onPress={player.forward10s}>
+        <Pressable onPress={player?.forward10s}>
           <MaterialIcons name="forward-10" size={35} color={color.inverse} />
         </Pressable>
       </View>
@@ -117,16 +117,16 @@ const Player = ({player}: any) => {
           <Slider
             style={{width: '80%', alignSelf: 'center'}}
             minimumValue={0}
-            maximumValue={player.duration}
-            value={player.currentTime}
+            maximumValue={player?.duration}
+            value={player?.currentTime}
             minimumTrackTintColor={color.inverse}
             maximumTrackTintColor={
-              player.status === 'loading' ? '#f00' : color.inverse
+              player?.status === 'loading' ? '#f00' : color.inverse
             }
             thumbTintColor={color.grey}
-            onTouchStart={player.pause}
-            onTouchEnd={player.play}
-            onSlidingComplete={seconds => player.seekToTime(seconds)}
+            onTouchStart={player?.pause}
+            onTouchEnd={player?.play}
+            onSlidingComplete={seconds => player?.seekToTime(seconds)}
           />
         </View>
         <View
@@ -135,10 +135,12 @@ const Player = ({player}: any) => {
             width: '90%',
             justifyContent: 'space-between',
           }}>
-          <MyText>{player.currentTimeString}</MyText>
+          <MyText>{player?.currentTimeString}</MyText>
           <Pressable onPress={() => setShowElapsed(!showElapsed)}>
             <MyText>
-              {showElapsed ? `- ${player.elapsedTime}` : player.durationString}
+              {showElapsed
+                ? `- ${player?.elapsedTime}`
+                : player?.durationString}
             </MyText>
           </Pressable>
         </View>

@@ -1,5 +1,5 @@
 import {Formik} from 'formik';
-import React, {memo, useCallback, useMemo, useRef} from 'react';
+import React, {memo, useCallback, useRef} from 'react';
 import {Keyboard, View} from 'react-native';
 // import {getAsyncStorage, setAsyncStorage} from 'utils/helper';
 import * as yup from 'yup';
@@ -23,14 +23,7 @@ const LoginForm = () => {
     password: '',
   };
 
-  const onShowModalError = useCallback(
-    message => modalErrorRef.current.showModal(message),
-    [],
-  );
-
   const {mutate: loginApp, isLoading: isLoadingSb} = useMutationLogin();
-
-  const isLoading = useMemo(() => isLoadingSb, [isLoadingSb]);
 
   const onSubmitForm = useCallback(
     values => {
@@ -49,9 +42,9 @@ const LoginForm = () => {
         onSubmit={onSubmitForm}>
         {() => (
           <View>
-            <LoginUsername isLoading={isLoading} />
-            <LoginPassword isLoading={isLoading} />
-            <LoginSubmit isLoading={isLoading} />
+            <LoginUsername isLoading={isLoadingSb} />
+            <LoginPassword isLoading={isLoadingSb} />
+            <LoginSubmit isLoading={isLoadingSb} />
           </View>
         )}
       </Formik>

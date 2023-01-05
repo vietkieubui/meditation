@@ -105,10 +105,10 @@ const TrackUpload = () => {
   return (
     <SafeView>
       <ScrollView>
-        <BackHeader title="Upload Music" />
+        <BackHeader title="Đăng nhạc" />
 
         <TextInput
-          placeholder="Title"
+          placeholder="Tiêu đề"
           style={[styles.input, {color: color.inverse}]}
           value={title}
           onChangeText={text => setTitle(text)}
@@ -116,7 +116,7 @@ const TrackUpload = () => {
         />
 
         <TextInput
-          placeholder="Artist"
+          placeholder="Nghệ sĩ"
           style={[styles.input, {color: color.inverse}]}
           value={artist}
           onChangeText={text => setArtist(text)}
@@ -155,7 +155,7 @@ const TrackUpload = () => {
             height: 50,
           }}>
           <MyText color="#fff" fontSize={30}>
-            Submit
+            Đăng
           </MyText>
         </Pressable>
       </ScrollView>

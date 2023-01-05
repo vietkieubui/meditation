@@ -1,10 +1,11 @@
 import {activeProfileAtom} from '@utils/active-profile';
 import API from '@utils/API';
+import {showToast} from '@utils/helpers';
 import {useMutation} from 'react-query';
 import {useSetRecoilState} from 'recoil';
 import {accessTokenState} from '../../../state-management/access-token';
 
-export const useMutationLogin = onShowModalError => {
+export const useMutationLogin = () => {
   const setAccessToken = useSetRecoilState(accessTokenState);
   const setActiveProfile = useSetRecoilState(activeProfileAtom);
 
@@ -27,13 +28,13 @@ export const useMutationLogin = onShowModalError => {
         setActiveProfile(response?.data?.user);
       },
       onError: e => {
-        onShowModalError(e?.message || 'Không thể đăng nhập do lỗi hệ thống');
+        showToast('error', `Lỗi: ${e.message || 'Không tìm thấy người dùng'}`);
       },
     },
   );
 };
 
-export const useMutationRegister = onShowModalError => {
+export const useMutationRegister = () => {
   const setAccessToken = useSetRecoilState(accessTokenState);
 
   return useMutation(
@@ -55,9 +56,7 @@ export const useMutationRegister = onShowModalError => {
         setAccessToken(response?.accessToken);
       },
       onError: e => {
-        onShowModalError(
-          e?.message || 'Không thể đăng kí tài khoản do lỗi hệ thống',
-        );
+        showToast('error', `Lỗi: ${e.message || 'Không tìm thấy người dùng'}`);
       },
     },
   );

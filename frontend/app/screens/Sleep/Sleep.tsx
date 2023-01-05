@@ -130,7 +130,7 @@ const Sleep = () => {
             <MyText color={color.white} fontSize={25}>
               Daily Thoughts
             </MyText>
-            <MyText color={color.white}>Meditation 5-10Min</MyText>
+            <MyText color={color.white}>Meditation 5-10p</MyText>
           </View>
           <View
             style={[
@@ -142,7 +142,7 @@ const Sleep = () => {
                 paddingHorizontal: 25,
               },
             ]}>
-            <MyText color={color.textColor}>Start</MyText>
+            <MyText color={color.textColor}>Bắt đầu</MyText>
           </View>
         </Pressable>
         <View style={{paddingHorizontal: 10, marginBottom: 20}}>

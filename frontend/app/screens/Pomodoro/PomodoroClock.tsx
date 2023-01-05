@@ -1,12 +1,13 @@
-import { WIDTH } from '@constants/const';
-import { MyText, SafeView } from '@elements/SharedElements';
+import {WIDTH} from '@constants/const';
+import {MyText, SafeView} from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
 import MaskedView from '@react-native-masked-view/masked-view';
-import { secondsToHHMMSS } from '@utils/secondsToHHMMSS';
-import React, { useEffect, useRef, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import {secondsToHHMMSS} from '@utils/secondsToHHMMSS';
+import React, {useEffect, useRef, useState} from 'react';
+import {Pressable, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import Animated, {useAnimatedStyle, withSpring} from 'react-native-reanimated';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 const APPLEWIDTH = 260;
@@ -63,8 +64,7 @@ const PomodoroClock = () => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
-          paddingTop:50
-
+          paddingTop: 50,
         }}>
         <MyText fontSize={30}>Đếm ngược</MyText>
         <MyText fontSize={30}>{secondsToHHMMSS(timer)}</MyText>
@@ -95,9 +95,11 @@ const PomodoroClock = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Icon name="rocket" size={APPLEWIDTH} color={'#000'} />
-              
-
+              <SimpleLineIcons
+                name="hourglass"
+                size={APPLEWIDTH}
+                color={'#000'}
+              />
             </View>
           }>
           <AnimatedLinearGradient

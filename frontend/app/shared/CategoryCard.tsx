@@ -1,7 +1,7 @@
-import { TopicsProps } from '@constants/Interfaces';
-import { MyText } from '@elements/SharedElements';
+import {TopicsProps} from '@constants/Interfaces';
+import {MyText} from '@elements/SharedElements';
 import React from 'react';
-import { Dimensions, Image, Pressable, StyleSheet, View } from 'react-native';
+import {Dimensions, Image, Pressable, StyleSheet, View} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -31,10 +31,10 @@ const CategoryCard: React.FC<CategoryCardProps> = ({item, onPress}) => {
           top: 10,
         }}
       />
-      <View style={{justifyContent: 'space-between', flex: 1, padding: 10}}>
+      <View style={{justifyContent: 'flex-end', flex: 1, padding: 10}}>
         <View />
         <View>
-          <MyText color={textColor} fontSize={22} style={{marginTop: 10}}>
+          <MyText color={textColor} fontSize={22}>
             {item.title}
           </MyText>
           <MyText color={textColor}>Music</MyText>

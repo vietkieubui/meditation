@@ -1,17 +1,16 @@
-import { downloadError } from '@constants/errors';
-import { TrackProps } from '@constants/Interfaces';
-import { requestStoragePermission } from '@constants/permissions';
-import { AudioDirectoryPath, DirectoryPath } from '@constants/saveconst';
-import { MyText, SafeView } from '@elements/SharedElements';
-import { Container } from '@elements/Styles';
-import { useAudioHelper } from '@helpers/audio-helper';
+import {downloadError} from '@constants/errors';
+import {TrackProps} from '@constants/Interfaces';
+import {requestStoragePermission} from '@constants/permissions';
+import {AudioDirectoryPath} from '@constants/saveconst';
+import {MyText, SafeView} from '@elements/SharedElements';
+import {Container} from '@elements/Styles';
+import {useAudioHelper} from '@helpers/audio-helper';
 import useNavHelper from '@helpers/navHelper';
 import useStyle from '@hooks/useStyle';
-import Player from '@screens/Player/Player';
-import React, { useEffect, useState } from 'react';
-import { Alert, BackHandler, Platform, ToastAndroid, View } from 'react-native';
-import RNFS, { DownloadProgressCallbackResult } from 'react-native-fs';
-import { useSharedValue } from 'react-native-reanimated';
+import React, {useState} from 'react';
+import {Alert, Platform, View} from 'react-native';
+import RNFS, {DownloadProgressCallbackResult} from 'react-native-fs';
+import {useSharedValue} from 'react-native-reanimated';
 
 const PlayerPage = (props: any) => {
   const {item}: {item: TrackProps} = props.route.params;
@@ -26,29 +25,29 @@ const PlayerPage = (props: any) => {
   const [downloaded, setDownloaded] = useState(false);
   const [paths, setPaths] = useState('');
 
-  useEffect(() => {
-    let isMounted = true;
-    RNFS.readDir(AudioDirectoryPath)
-      .then(files => {
-        if (isMounted) {
-          for (let index = 0; index < files.length; index++) {
-            const element = files[index];
-            if (element.name.substring(0, 8) === item.id) {
-              setDownloaded(true);
-              setPaths(element.path);
-            }
-          }
-        }
-      })
-      .catch(err => {
-        console.log(err.message, err.code);
-        RNFS.mkdir(DirectoryPath);
-        RNFS.mkdir(AudioDirectoryPath);
-      });
-    return () => {
-      isMounted = false;
-    };
-  }, [item.id]);
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   RNFS.readDir(AudioDirectoryPath)
+  //     .then(files => {
+  //       if (isMounted) {
+  //         for (let index = 0; index < files.length; index++) {
+  //           const element = files[index];
+  //           if (element.name.substring(0, 8) === item.id) {
+  //             setDownloaded(true);
+  //             setPaths(element.path);
+  //           }
+  //         }
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err.message, err.code);
+  //       RNFS.mkdir(DirectoryPath);
+  //       RNFS.mkdir(AudioDirectoryPath);
+  //     });
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [item.id]);
 
   const player = useAudioHelper({
     listSounds: [
@@ -61,34 +60,32 @@ const PlayerPage = (props: any) => {
     ],
   });
 
-  
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     handleBack();
+  //     return true;
+  //   };
 
-  useEffect(() => {
-    const backAction = () => {
-      handleBack();
-      return true;
-    };
+  //   const backHandler = BackHandler.addEventListener(
+  //     'hardwareBackPress',
+  //     backAction,
+  //   );
+  //   return () => backHandler.remove();
+  // }, [handleBack]);
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-    return () => backHandler.remove();
-  }, [handleBack]);
-
-  const Toast = ({visible, message}: {visible: boolean; message: string}) => {
-    if (visible && Platform.OS === 'android') {
-      ToastAndroid.showWithGravityAndOffset(
-        message,
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM,
-        25,
-        50,
-      );
-      return null;
-    }
-    return null;
-  };
+  // const Toast = ({visible, message}: {visible: boolean; message: string}) => {
+  //   if (visible && Platform.OS === 'android') {
+  //     ToastAndroid.showWithGravityAndOffset(
+  //       message,
+  //       ToastAndroid.LONG,
+  //       ToastAndroid.BOTTOM,
+  //       25,
+  //       50,
+  //     );
+  //     return null;
+  //   }
+  //   return null;
+  // };
 
   const path =
     AudioDirectoryPath +
@@ -122,7 +119,7 @@ const PlayerPage = (props: any) => {
       });
   };
 
-  useEffect(() => setvisibleToast(false), [visibleToast]);
+  // useEffect(() => setvisibleToast(false), [visibleToast]);
 
   return (
     <SafeView>
@@ -135,7 +132,7 @@ const PlayerPage = (props: any) => {
         downloadProgress={downloadProgress.value}
       /> */}
 
-      <Toast visible={visibleToast} message={toastMessage} />
+      {/* <Toast visible={visibleToast} message={toastMessage} /> */}
       <View style={Container.centerContainer}>
         <View
           style={{
@@ -148,7 +145,7 @@ const PlayerPage = (props: any) => {
             {item.artist}
           </MyText>
         </View>
-        <Player {...{player}} />
+        {/* <Player {...{player}} /> */}
       </View>
     </SafeView>
   );

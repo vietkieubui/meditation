@@ -1,15 +1,15 @@
-import { MyText } from '@elements/SharedElements';
+import {MyText} from '@elements/SharedElements';
 import useStyle from '@hooks/useStyle';
 import Slider from '@react-native-community/slider';
-import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Pressable, StyleSheet, View} from 'react-native';
 import MusicControl from 'react-native-music-control';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring
+  withSpring,
 } from 'react-native-reanimated';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const AnimaedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -58,7 +58,7 @@ const Player = ({player}: any) => {
     <>
       <View style={styles.switches}>
         <Pressable onPress={player.rewind10s}>
-          <Icon name="replay-10" size={35} color={color.inverse} />
+          <MaterialIcons name="replay-10" size={35} color={color.inverse} />
         </Pressable>
         <View
           style={{
@@ -86,7 +86,7 @@ const Player = ({player}: any) => {
                   },
                   pressStyle,
                 ]}>
-                <Icon name="pause" size={35} color={color.main} />
+                <MaterialIcons name="pause" size={35} color={color.main} />
               </AnimaedPressable>
             ) : (
               <AnimaedPressable
@@ -98,13 +98,13 @@ const Player = ({player}: any) => {
                   },
                   pressStyle,
                 ]}>
-                <Icon name="play-arrow" size={35} color={color.main} />
+                <MaterialIcons name="play-arrow" size={35} color={color.main} />
               </AnimaedPressable>
             )}
           </Animated.View>
         </View>
         <Pressable onPress={player.forward10s}>
-          <Icon name="forward-10" size={35} color={color.inverse} />
+          <MaterialIcons name="forward-10" size={35} color={color.inverse} />
         </Pressable>
       </View>
 

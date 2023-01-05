@@ -86,7 +86,7 @@ const Profile = () => {
       </View> */}
 
       <View style={{marginTop: 30}}>
-        <MyText>Lịch của tôi</MyText>
+        <MyText title>Lịch của tôi</MyText>
         <View style={{paddingHorizontal: 10}}>
           <View
             style={{
@@ -103,7 +103,7 @@ const Profile = () => {
                 justifyContent: 'center',
                 flexDirection: 'row',
               }}>
-              <MyText title style={{marginRight: 10}}>
+              <MyText fontSize={25} style={{marginRight: 10}}>
                 {moment(time).format('h:mm A')}
               </MyText>
               <Icon name="edit" size={25} color={color.textColor} />

@@ -9,7 +9,7 @@ import moment from 'moment';
 import React, {useContext, useEffect} from 'react';
 import {Keyboard, Platform, Pressable, StatusBar} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ChatStack from './ChatStack/ChatStack';
 import HomeStack from './HomeStack/HomeStack';
 import MeditationStack from './MeditationStack/MeditationStack';
@@ -17,7 +17,7 @@ import ProfileStack from './ProfileStack/ProfileStack';
 const Tab = createBottomTabNavigator();
 
 const AnimatedPress = Animated.createAnimatedComponent(Pressable);
-const AnimatedIcon = Animated.createAnimatedComponent(Icon);
+const AnimatedIcon = Animated.createAnimatedComponent(MaterialCommunityIcons);
 
 type MyTabBarProps = {
   state: any;
@@ -151,10 +151,10 @@ const MyTabBar: React.FC<MyTabBarProps> = ({
               iconName = 'chat';
               break;
             case 3:
-              iconName = `clock-time-${time}`;
+              iconName = `clock-outline`;
               break;
             case 4:
-              iconName = 'human-greeting';
+              iconName = 'account';
               break;
             default:
               break;
@@ -188,6 +188,7 @@ const MyTabBar: React.FC<MyTabBarProps> = ({
                   },
                 ]}
               />
+
               <MyText
                 style={{
                   color: color.grey,

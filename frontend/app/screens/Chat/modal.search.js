@@ -31,6 +31,10 @@ const ModalSearch = forwardRef((props, ref) => {
     mutate(phoneNumber);
   }, [mutate, phoneNumber]);
 
+  const onPressCancel = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
   return (
     <Modal isVisible={isVisible}>
       <View
@@ -46,11 +50,16 @@ const ModalSearch = forwardRef((props, ref) => {
           keyboardType={'numeric'}
           maxLength={10}
           onChangeText={text => setPhoneNumber(text)}
-          placeholder="Enter phone number"
+          placeholder="Nhập số điện thoại"
         />
-        <TouchableOpacity style={styles.button} onPress={onPress}>
-          <Text style={styles.buttonText}>Nhắn tin</Text>
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity style={styles.buttonCancel} onPress={onPressCancel}>
+            <Text style={styles.buttonText}>Huỷ</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={onPress}>
+            <Text style={styles.buttonText}>Nhắn</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </Modal>
   );
@@ -60,24 +69,34 @@ export default memo(ModalSearch);
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
+    height: 50,
     width: 300,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
     borderRadius: 10,
+    fontSize: 16,
   },
   button: {
     backgroundColor: '#FAAB78',
-    width: 150,
+    width: 100,
+    height: 44,
+    padding: 10,
+    margin: 20,
+    borderRadius: 10,
+  },
+  buttonCancel: {
+    backgroundColor: '#999',
+    width: 100,
+    height: 44,
     padding: 10,
     margin: 20,
     borderRadius: 10,
   },
   buttonText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
   },
 });
